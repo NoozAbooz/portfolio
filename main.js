@@ -321,7 +321,7 @@ var push_back = undefined;
 // Load a glTF resource
 glbLoader.load(
   // resource URL
-  "models/robots/push-back.glb",
+  "models/robots/push-back-simplify.glb",
   // called when the resource is loaded
   function (gltf) {
     gltf.animations; // Array<THREE.AnimationClip>
