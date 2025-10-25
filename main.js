@@ -156,7 +156,7 @@ glbLoader.load(
     robotMesh.scale.setScalar(0.6);
     robotMesh.rotateX(-Math.PI / 2);
     robotMesh.rotateZ(Math.PI / 4);
-    robotMesh.position.set(18, -830, 10);
+    robotMesh.position.set(18, -800, 10);
 
     scene.add(robotMesh);
   },
@@ -279,10 +279,16 @@ function resize() {
     camera.position.setZ(130);
     cylinder1.position.setZ(60);
     cylinder2.position.setZ(60);
+    // Hide cylinders on mobile to remove arrow-like appearance
+    cylinder1.visible = false;
+    cylinder2.visible = false;
   } else {
     camera.position.setZ(80);
     cylinder1.position.setZ(10);
     cylinder2.position.setZ(10);
+    // Show cylinders on desktop
+    cylinder1.visible = true;
+    cylinder2.visible = true;
   }
 
   console.log("resize");
