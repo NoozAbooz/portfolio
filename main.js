@@ -141,10 +141,10 @@ var robotMesh;
 // Instantiate a loader
 const glbLoader = new GLTFLoader();
 
-// Load a glTF resource
+// Load a glTF resource, model at bottom of page
 glbLoader.load(
   // resource URL
-  "high-stakes.glb",
+  "models/robots/high-stakes.glb",
   // called when the resource is loaded
   function (gltf) {
     gltf.animations; // Array<THREE.AnimationClip>
@@ -153,9 +153,10 @@ glbLoader.load(
     gltf.cameras; // Array<THREE.Camera>
     gltf.asset; // Object
     robotMesh = gltf.scene;
-    robotMesh.scale.setScalar(0.5);
+    robotMesh.scale.setScalar(0.6);
     robotMesh.rotateX(-Math.PI / 2);
-    robotMesh.position.set(18, -800, -10);
+    robotMesh.rotateZ(Math.PI / 4);
+    robotMesh.position.set(18, -830, 10);
 
     scene.add(robotMesh);
   },
@@ -165,15 +166,17 @@ const mtlLoader = new MTLLoader();
 
 var mutcapSilicone = undefined;
 
-mtlLoader.load("tactile/mutcap-silicone.mtl", function (materials) {
+mtlLoader.load("models/odom-pod/pod.mtl", function (materials) {
   // materials.preload();
   var objLoader = new OBJLoader();
   objLoader.setMaterials(materials);
-  objLoader.load("tactile/mutcap-silicone.obj", function (object) {
+  objLoader.load("models/odom-pod/pod.obj", function (object) {
     mutcapSilicone = object;
-    mutcapSilicone.scale.setScalar(2);
-    mutcapSilicone.rotateY(0.5);
-    mutcapSilicone.position.set(-22, -370, -10);
+    mutcapSilicone.scale.setScalar(2.5);
+    mutcapSilicone.rotateY(-Math.PI / 2);
+    mutcapSilicone.rotateX(-Math.PI / 2);
+    mutcapSilicone.rotateZ(-Math.PI / 6);
+    mutcapSilicone.position.set(-22, -420, -10);
     scene.add(mutcapSilicone);
   });
 });
@@ -188,23 +191,23 @@ mtlLoader.load("tactile/mutcap-3d.mtl", function (materials) {
     mutcap3d = object;
     mutcap3d.rotateX(Math.PI / 2);
     mutcap3d.scale.setScalar(2);
-    mutcap3d.position.set(20, -410, -10);
+    mutcap3d.position.set(15, -410, -10);
     scene.add(mutcap3d);
   });
 });
 
 var mutcapPcb = undefined;
 
-mtlLoader.load("tactile/mutcap-pcb.mtl", function (materials) {
+mtlLoader.load("models/business-card/business-card.mtl", function (materials) {
   // materials.preload();
   var objLoader = new OBJLoader();
   objLoader.setMaterials(materials);
-  objLoader.load("tactile/mutcap-pcb.obj", function (object) {
+  objLoader.load("models/business-card/business-card.obj", function (object) {
     mutcapPcb = object;
     mutcapPcb.rotateY(Math.PI * 1);
     mutcapPcb.rotateX(Math.PI / 2);
-    mutcapPcb.scale.setScalar(2.5);
-    mutcapPcb.position.set(-28, -450, 5);
+    mutcapPcb.scale.setScalar(0.3);
+    mutcapPcb.position.set(28, -440, 5);
     scene.add(mutcapPcb);
   });
 });
@@ -247,7 +250,7 @@ function addStar() {
     .fill()
     .map(() => THREE.MathUtils.randFloatSpread(100));
 
-  star.position.set(x, y * 20 - 900, z);
+  star.position.set(x, y * 20 - 1015, z);
   scene.add(star);
 }
 
@@ -289,12 +292,14 @@ resize();
 
 // Robot path following
 
-const curve = new THREE.CubicBezierCurve3(
-  new THREE.Vector3(-40, OU_OFFSET, 0),
-  new THREE.Vector3(-20, OU_OFFSET, 0),
-  new THREE.Vector3(-20, OU_OFFSET, -35),
-  new THREE.Vector3(0, OU_OFFSET, -35),
-);
+// Create an inverse square root curve using parametric function
+const curve = new THREE.Curve();
+curve.getPoint = function(t) {
+  // Inverse square root curve: x = t, z = (1 - sqrt(1-t)) * scale
+  const x = -40 + t * 40; // Move from -40 to 0
+  const z = (1 - Math.sqrt(1 - t)) * -35; // Inverse square root curve in Z direction
+  return new THREE.Vector3(x, OU_OFFSET, z);
+};
 
 const points = curve.getPoints(50);
 const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
@@ -312,11 +317,11 @@ scene.add(gridHelper);
 const curveObject = new THREE.Line(lineGeometry, lineMaterial);
 scene.add(curveObject);
 
-var over_under = undefined;
+var push_back = undefined;
 // Load a glTF resource
 glbLoader.load(
   // resource URL
-  "over-under.glb",
+  "models/robots/push-back.glb",
   // called when the resource is loaded
   function (gltf) {
     gltf.animations; // Array<THREE.AnimationClip>
@@ -324,30 +329,31 @@ glbLoader.load(
     gltf.scenes; // Array<THREE.Group>
     gltf.cameras; // Array<THREE.Camera>
     gltf.asset; // Object
-    over_under = gltf.scene;
-    over_under.scale.setScalar(0.5);
-    over_under.rotateX(-Math.PI / 2);
-    over_under.position.set(18, -25, -10);
+    push_back = gltf.scene;
+    push_back.scale.setScalar(0.1);
+    push_back.rotateX(-4*Math.PI / 2);
+    push_back.rotateY(Math.PI / 2);
+    push_back.position.set(18, -25, -10);
 
-    scene.add(over_under);
+    scene.add(push_back);
   },
 );
 
 var planeGeometry = new THREE.PlaneGeometry(32, 18, 1, 1);
-var texture = new THREE.TextureLoader().load("al-planner.png");
+var texture = new THREE.TextureLoader().load("images/path-planner.png");
 var planeMaterial = new THREE.MeshBasicMaterial({
   map: texture,
 });
 var plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
-plane.position.set(30, -80, -20);
+plane.position.set(30, -180, -20);
 plane.rotateY(-0.5);
 
 scene.add(plane);
 
 function loadImage() {
   var planeGeometry = new THREE.PlaneGeometry(30, 20.45, 1, 1);
-  var texture = new THREE.TextureLoader().load("command-based.png");
+  var texture = new THREE.TextureLoader().load("images/amogos.png");
   var planeMaterial = new THREE.MeshBasicMaterial({
     map: texture,
     color: 0xeeeeee,
@@ -365,15 +371,15 @@ function loadImage() {
 loadImage();
 
 var telemetry_radio = undefined;
-mtlLoader.load("pico-debugger.mtl", function (materials) {
+mtlLoader.load("models/competition-switch/compswitch.mtl", function (materials) {
   // materials.preload();
   var objLoader = new OBJLoader();
   objLoader.setMaterials(materials);
-  objLoader.load("pico-debugger.obj", function (object) {
+  objLoader.load("models/competition-switch/compswitch.obj", function (object) {
     telemetry_radio = object;
-    telemetry_radio.scale.setScalar(5);
+    telemetry_radio.scale.setScalar(0.4);
     telemetry_radio.position.set(-50, OU_OFFSET + 50, -40);
-    telemetry_radio.rotation.z = Math.PI / 2;
+    telemetry_radio.rotation.y = Math.PI / 6;
     scene.add(telemetry_radio);
   });
 });
@@ -383,11 +389,11 @@ const viewer = new GaussianSplats3D.DropInViewer({
 });
 viewer.addSplatScenes([
   {
-    path: "/gaussian_splats/alex.ksplat",
+    path: "/gaussian_splats/model.ksplat",
     splatAlphaRemovalThreshold: 5,
   },
   {
-    path: "/gaussian_splats/alex.ksplat",
+    path: "/gaussian_splats/model.ksplat",
     rotation: [1, 0, 0, 0],
     scale: [80, 80, 80],
     position: [0, 0, 0],
@@ -492,7 +498,7 @@ function moveCamera() {
   const diff = 30;
 
   if (telemetry_radio != undefined) {
-    telemetry_radio.rotation.y = top * 0.01;
+    telemetry_radio.rotation.y = (top + 400) * 0.005;
   }
 
   const opacity1 = Math.min((top + start) / divisor, 1);
@@ -519,7 +525,7 @@ function moveCamera() {
     pcb_fss.position.setX((1 - opacity4) * -200 - 30);
   }
 
-  console.log(opacity1);
+  //console.log(opacity1);
 }
 
 moveCamera();
@@ -527,7 +533,7 @@ moveCamera();
 function animate() {
   requestAnimationFrame(animate);
   if (robotMesh != undefined) {
-    robotMesh.rotation.z += 0.01;
+    robotMesh.rotation.y += 0.01;
   }
 
   viewer.rotation.y = Math.cos(Date.now() / 3200) / 1.8;
@@ -540,9 +546,9 @@ function animate() {
   const position = curve.getPoint(t);
   const tangent = curve.getTangent(t);
 
-  if (over_under != undefined) {
-    over_under.position.set(position.x, position.y, position.z + 1);
-    over_under.rotation.z = Math.atan2(tangent.x, tangent.z);
+  if (push_back != undefined) {
+    push_back.position.set(position.x, position.y, position.z + 1);
+    push_back.rotation.y = Math.atan2(tangent.x, tangent.z);
   }
 
   if (mutcap3d != undefined) {
