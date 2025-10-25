@@ -144,7 +144,7 @@ const glbLoader = new GLTFLoader();
 // Load a glTF resource, model at bottom of page
 glbLoader.load(
   // resource URL
-  "models/robots/high-stakes.glb",
+  "models/robots/high-stakes-simplify.glb",
   // called when the resource is loaded
   function (gltf) {
     gltf.animations; // Array<THREE.AnimationClip>
@@ -533,7 +533,7 @@ moveCamera();
 function animate() {
   requestAnimationFrame(animate);
   if (robotMesh != undefined) {
-    robotMesh.rotation.y += 0.01;
+    robotMesh.rotation.y += 0.02;
   }
 
   viewer.rotation.y = Math.cos(Date.now() / 3200) / 1.8;
