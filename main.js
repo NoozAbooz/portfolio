@@ -419,7 +419,7 @@ var pcb_fss = undefined;
 
 function loadSvg() {
   var planeGeometry = new THREE.PlaneGeometry(30, 28.3516483515, 1, 1);
-  var texture1 = new THREE.TextureLoader().load("pcbs/liftoff-bss.png");
+  var texture1 = new THREE.TextureLoader().load("pcbs/noozboard/1.png");
 
   pcb_bss = new THREE.Mesh(
     planeGeometry,
@@ -436,7 +436,7 @@ function loadSvg() {
   pcb_bss.rotateZ(Math.PI / 2);
   pcb_bss.rotateX(0.5);
 
-  var texture2 = new THREE.TextureLoader().load("pcbs/liftoff-bcu.png");
+  var texture2 = new THREE.TextureLoader().load("pcbs/noozboard/2.png");
   pcb_bcu = new THREE.Mesh(
     planeGeometry,
     new THREE.MeshBasicMaterial({
@@ -455,7 +455,7 @@ function loadSvg() {
   pcb_fcu = new THREE.Mesh(
     planeGeometry,
     new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load("pcbs/liftoff-fcu.png"),
+      map: new THREE.TextureLoader().load("pcbs/noozboard/3.png"),
       color: 0xeeeeee,
       transparent: true,
     }),
@@ -470,7 +470,7 @@ function loadSvg() {
   pcb_fss = new THREE.Mesh(
     planeGeometry,
     new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load("pcbs/liftoff-fss.png"),
+      map: new THREE.TextureLoader().load("pcbs/noozboard/4.png"),
       color: 0xeeeeee,
       transparent: true,
     }),
