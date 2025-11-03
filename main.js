@@ -156,7 +156,7 @@ glbLoader.load(
     robotMesh.scale.setScalar(0.6);
     robotMesh.rotateX(-Math.PI / 2);
     robotMesh.rotateZ(Math.PI / 4);
-    robotMesh.position.set(18, -800, 10);
+    robotMesh.position.set(18, -720, 10);
 
     scene.add(robotMesh);
   },
@@ -207,7 +207,7 @@ mtlLoader.load("models/business-card/business-card.mtl", function (materials) {
     mutcapPcb.rotateY(Math.PI * 1);
     mutcapPcb.rotateX(Math.PI / 2);
     mutcapPcb.scale.setScalar(0.3);
-    mutcapPcb.position.set(28, -440, 5);
+    mutcapPcb.position.set(22, -360, 5);
     scene.add(mutcapPcb);
   });
 });
@@ -368,7 +368,7 @@ function loadImage() {
 
   plane.scale.setScalar(1.5);
 
-  plane.position.set(30, -665, -20);
+  plane.position.set(30, -575, -20);
   plane.rotateY(-0.5);
 
   scene.add(plane);
@@ -432,7 +432,7 @@ function loadSvg() {
 
   pcb_bss.scale.setScalar(1.0);
 
-  pcb_bss.position.set(-30, -665, -20);
+  pcb_bss.position.set(-30, -610, -20);
   pcb_bss.rotateZ(Math.PI / 2);
   pcb_bss.rotateX(0.5);
 
@@ -448,7 +448,7 @@ function loadSvg() {
 
   pcb_bcu.scale.setScalar(1.0);
 
-  pcb_bcu.position.set(-30, -665, -19.5);
+  pcb_bcu.position.set(-30, -610, -19.5);
   pcb_bcu.rotateZ(Math.PI / 2);
   pcb_bcu.rotateX(0.5);
 
@@ -463,7 +463,7 @@ function loadSvg() {
 
   pcb_fcu.scale.setScalar(1.0);
 
-  pcb_fcu.position.set(-30, -665, -19);
+  pcb_fcu.position.set(-30, -610, -19);
   pcb_fcu.rotateZ(Math.PI / 2);
   pcb_fcu.rotateX(0.5);
 
@@ -478,7 +478,7 @@ function loadSvg() {
 
   pcb_fss.scale.setScalar(1.0);
 
-  pcb_fss.position.set(-30, -665, -18.5);
+  pcb_fss.position.set(-30, -610, -18.5);
   pcb_fss.rotateZ(Math.PI / 2);
   pcb_fss.rotateX(0.5);
 
@@ -499,7 +499,7 @@ function moveCamera() {
 
   const divisor = -600;
 
-  const start = 2600;
+  const start = 2300;
 
   const diff = 30;
 
