@@ -8,6 +8,34 @@
     font-style: normal;
 }
 
+html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Hide scrollbars globally while maintaining scroll functionality */
+* {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
 /* Responsive breakpoints:
    Mobile: < 640px
    Tablet (iPad/Surface): 640px - 1024px
@@ -169,15 +197,17 @@ canvas {
 
 main {
     position: absolute;
-    width: 100vw;
-    z-index: 99;
     width: 100%;
+    max-width: 100vw;
+    z-index: 99;
 
     margin: 0px auto;
     padding: 120px 0px 0px 0px;
 
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 /* Mobile: < 640px */
@@ -185,10 +215,46 @@ main {
     main {
         padding: 60px 1rem 0px 1rem;
         grid-template-columns: 1fr;
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+        overflow-y: visible;
+        height: auto;
     }
     
     :root {
         --spacing: 50vh;
+    }
+    
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+    }
+    
+    header {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .card {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .card div {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    footer {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        box-sizing: border-box;
     }
 }
 
@@ -207,6 +273,9 @@ header {
     grid-column: 2 / span 5;
     margin-bottom: var(--spacing);
     min-height: 700px;
+    overflow-x: hidden;
+    overflow-y: visible;
+    height: auto;
 }
 
 /* Mobile: < 640px */
@@ -214,7 +283,26 @@ header {
     header {
         grid-column: 1;
         min-height: auto;
-        margin-bottom: 40vh;
+        height: auto;
+        max-height: none;
+        margin-bottom: 50vh;
+        padding: 0;
+        padding-bottom: 30vh;
+        overflow: visible;
+        overflow-x: hidden;
+        overflow-y: visible;
+    }
+    
+    .header-container {
+        height: auto;
+        min-height: auto;
+        max-height: none;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 20vh;
+        overflow: visible;
+        overflow-x: hidden;
+        overflow-y: visible;
     }
 }
 
@@ -284,6 +372,9 @@ header p {
     background: white;
     border: solid 8px black;
     padding: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
 }
 
 .left {
@@ -476,6 +567,17 @@ body {
     padding: 0px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
 /* Mobile: < 640px */
@@ -511,6 +613,21 @@ body {
 img {
     max-width: 100%;
     height: auto;
+    box-sizing: border-box;
+}
+
+/* Mobile: < 640px */
+@media screen and (max-width: 639px) {
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    .banner {
+        max-width: 90vw !important;
+        width: auto !important;
+    }
 }
 
 /* Mobile: < 640px */

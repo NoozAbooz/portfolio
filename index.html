@@ -26,7 +26,7 @@
             .header-container {
                 display: flex;
                 align-items: center;
-                gap: 3rem;
+                gap: 0.75rem;
                 width: 100%;
                 /* padding: 0 2rem; */
                 justify-content: flex-start;
@@ -39,7 +39,7 @@
             
             .picture-frame {
                 position: absolute;
-                right: 9rem;
+                right: 7rem;
                 top: 7rem;
                 max-width: 450px;
                 width: 450px;
@@ -50,23 +50,42 @@
                 .header-container {
                     flex-direction: column;
                     text-align: center;
-                    gap: 2rem;
+                    gap: 1rem;
                     padding: 0 1rem;
+                    max-width: 100%;
+                    box-sizing: border-box;
+                    height: auto;
+                    min-height: auto;
+                    max-height: none;
+                    overflow: visible;
+                    overflow-x: hidden;
+                    overflow-y: visible;
                 }
                 .picture-frame {
                     position: relative;
                     right: auto;
                     top: auto;
-                    margin: 30px auto 0;
-                    width: 85%;
-                    max-width: 300px;
+                    margin: 15px auto 0;
+                    width: 65%;
+                    max-width: 220px;
+                    box-sizing: border-box;
+                    height: auto;
+                    overflow: visible;
                 }
                 
                 .header-content {
                     background-color: white;
-                    padding: 1.5rem;
+                    padding: 1.25rem;
                     border-radius: 8px;
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    max-width: 100%;
+                    box-sizing: border-box;
+                    height: auto;
+                    min-height: auto;
+                    max-height: none;
+                    overflow: visible;
+                    overflow-x: hidden;
+                    overflow-y: visible;
                 }
             }
             
@@ -100,9 +119,11 @@
                 display: block;
                 position: relative;
                 width: 100%;
+                max-width: 100%;
                 border-radius: 6px;
                 background-color: #9fa3a2;
                 z-index: 2;
+                box-sizing: border-box;
             }
             
             .picture-frame .wrapper:hover,
