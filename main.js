@@ -275,14 +275,36 @@ function resize() {
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight, true);
 
-  if (window.innerWidth / window.innerHeight < 1.0) {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const isMobile = width < 640;
+  const isTablet = width >= 640 && width <= 1024;
+  const isPortrait = width / height < 1.0;
+
+  if (isMobile) {
+    // Mobile phones
     camera.position.setZ(130);
     cylinder1.position.setZ(60);
     cylinder2.position.setZ(60);
     // Hide cylinders on mobile to remove arrow-like appearance
     cylinder1.visible = false;
     cylinder2.visible = false;
+  } else if (isTablet) {
+    // Tablets (iPad, Surface)
+    if (isPortrait) {
+      camera.position.setZ(110);
+      cylinder1.position.setZ(50);
+      cylinder2.position.setZ(50);
+    } else {
+      camera.position.setZ(90);
+      cylinder1.position.setZ(15);
+      cylinder2.position.setZ(15);
+    }
+    // Show cylinders on tablet
+    cylinder1.visible = true;
+    cylinder2.visible = true;
   } else {
+    // Desktop
     camera.position.setZ(80);
     cylinder1.position.setZ(10);
     cylinder2.position.setZ(10);

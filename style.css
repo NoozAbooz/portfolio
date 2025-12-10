@@ -8,6 +8,12 @@
     font-style: normal;
 }
 
+/* Responsive breakpoints:
+   Mobile: < 640px
+   Tablet (iPad/Surface): 640px - 1024px
+   Desktop: > 1024px
+*/
+
 .loading {
     opacity: 1;
     background-color: #fdfdfd;
@@ -41,6 +47,32 @@
     letter-spacing: -1px;
     color: #000;
     animation: fadeInUp 1s ease-out;
+}
+
+/* Mobile: < 640px */
+@media screen and (max-width: 639px) {
+    .loading-title {
+        font-size: 2.5em;
+    }
+    
+    .loading-subtitle {
+        font-size: 1.1em;
+    }
+    
+    .loading-content {
+        padding: 20px;
+    }
+}
+
+/* Tablet: 640px - 1024px */
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+    .loading-title {
+        font-size: 3em;
+    }
+    
+    .loading-subtitle {
+        font-size: 1.2em;
+    }
 }
 
 .loading-subtitle {
@@ -148,10 +180,51 @@ main {
     grid-template-columns: repeat(12, 1fr);
 }
 
+/* Mobile: < 640px */
+@media screen and (max-width: 639px) {
+    main {
+        padding: 60px 1rem 0px 1rem;
+        grid-template-columns: 1fr;
+    }
+    
+    :root {
+        --spacing: 50vh;
+    }
+}
+
+/* Tablet: 640px - 1024px */
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+    main {
+        padding: 80px 2rem 0px 2rem;
+    }
+    
+    :root {
+        --spacing: 60vh;
+    }
+}
+
 header {
     grid-column: 2 / span 5;
     margin-bottom: var(--spacing);
     min-height: 700px;
+}
+
+/* Mobile: < 640px */
+@media screen and (max-width: 639px) {
+    header {
+        grid-column: 1;
+        min-height: auto;
+        margin-bottom: 40vh;
+    }
+}
+
+/* Tablet: 640px - 1024px */
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+    header {
+        grid-column: 1 / span 12;
+        min-height: 500px;
+        margin-bottom: 50vh;
+    }
 }
 
 a {
@@ -170,6 +243,36 @@ h1 {
 
 header p {
     font-size: 1.5em;
+}
+
+/* Mobile: < 640px */
+@media screen and (max-width: 639px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    
+    header p {
+        font-size: 1.1em;
+    }
+    
+    header h2 {
+        font-size: 1.2em;
+    }
+}
+
+/* Tablet: 640px - 1024px */
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+    h1 {
+        font-size: 3em;
+    }
+    
+    header p {
+        font-size: 1.3em;
+    }
+    
+    header h2 {
+        font-size: 1.4em;
+    }
 }
 
 .card {
@@ -191,7 +294,47 @@ header p {
     grid-column: 5 / span 7;
 }
 
-@media screen and (max-width: 700px) {
+/* Mobile: < 640px */
+@media screen and (max-width: 639px) {
+    .card {
+        min-height: auto;
+        margin-bottom: 30vh;
+    }
+    
+    .card div {
+        border: solid 4px black;
+        padding: 1rem;
+    }
+    
+    .right {
+        grid-column: 1;
+    }
+
+    .left {
+        grid-column: 1;
+    }
+    
+    .card h2 {
+        font-size: 1.8em;
+    }
+    
+    .card p {
+        font-size: 1em;
+    }
+}
+
+/* Tablet: 640px - 1024px */
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+    .card {
+        min-height: 300px;
+        margin-bottom: 40vh;
+    }
+    
+    .card div {
+        border: solid 6px black;
+        padding: 1.5rem;
+    }
+    
     .right {
         grid-column: 1 / span 12;
     }
@@ -199,10 +342,32 @@ header p {
     .left {
         grid-column: 1 / span 12;
     }
+    
+    .card h2 {
+        font-size: 2.2em;
+    }
+    
+    .card p {
+        font-size: 1.1em;
+    }
 }
 
 .note {
     font-style: italic;
+}
+
+/* Mobile: < 640px */
+@media screen and (max-width: 639px) {
+    .note {
+        font-size: 0.9em;
+    }
+}
+
+/* Tablet: 640px - 1024px */
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+    .note {
+        font-size: 0.95em;
+    }
 }
 
 footer {
@@ -214,12 +379,6 @@ footer {
     height: 55vh;
     border-top: solid 8px black;
     position: relative;
-}
-
-@media screen and (min-width: 500px) {
-    footer {
-        padding: 50px;
-    }
 }
 
 footer span {
@@ -239,10 +398,105 @@ footer li {
     font-size: 1.1em;
 }
 
+/* Mobile: < 640px */
+@media screen and (max-width: 639px) {
+    footer {
+        padding: 1.5rem;
+        height: auto;
+        min-height: 50vh;
+        border-top: solid 4px black;
+    }
+    
+    footer h2 {
+        font-size: 2em;
+    }
+    
+    footer p {
+        font-size: 1em;
+    }
+    
+    footer li {
+        font-size: 0.95em;
+    }
+    
+    footer span {
+        position: static;
+        display: block;
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 0.9em;
+    }
+    
+    .banner {
+        width: 15rem !important;
+        max-width: 85vw !important;
+    }
+}
+
+/* Tablet: 640px - 1024px */
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+    footer {
+        padding: 2.5rem;
+        height: auto;
+        min-height: 50vh;
+        border-top: solid 6px black;
+    }
+    
+    footer h2 {
+        font-size: 2.5em;
+    }
+    
+    footer p {
+        font-size: 1.1em;
+    }
+    
+    footer li {
+        font-size: 1em;
+    }
+    
+    footer span {
+        right: 30px;
+        font-size: 0.95em;
+    }
+    
+    .banner {
+        width: 18rem !important;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 1024px) {
+    footer {
+        padding: 40px;
+    }
+}
+
 body {
     /* color: white; */
     margin: 0px;
     padding: 0px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile: < 640px */
+@media screen and (max-width: 639px) {
+    body {
+        font-size: 16px;
+    }
+    
+    /* Better touch targets on mobile */
+    a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+}
+
+/* Tablet: 640px - 1024px */
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+    body {
+        font-size: 17px;
+    }
 }
 
 .bold {
@@ -251,4 +505,24 @@ body {
 
 .hidden-link {
     text-decoration: none !important;
+}
+
+/* Responsive images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Mobile: < 640px */
+@media screen and (max-width: 639px) {
+    br {
+        display: none;
+    }
+}
+
+/* Tablet: 640px - 1024px */
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+    br {
+        display: block;
+    }
 }
