@@ -14,7 +14,7 @@ tag = 'tags'
 unsafe = true
 
 [params]
-favicon = 'img/favicon.png'
+favicon = 'https://raw.githubusercontent.com/NoozAbooz/nooz.dev/d6726961d44053c96598d0c4783ae150d97d8b19/blog/assets/img/favicon.png'
 
 [params.sidebar]
 emoji = ''
