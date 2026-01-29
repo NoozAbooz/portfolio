@@ -14,7 +14,7 @@ tag = 'tags'
 unsafe = true
 
 [params]
-favicon = '/favicon.png'
+favicon = 'img/favicon.png'
 
 [params.sidebar]
 emoji = ''
