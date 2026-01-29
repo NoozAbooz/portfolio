@@ -41,13 +41,13 @@ url = 'https://instagram.com/nooz_squared'
 [menu.social.params]
 icon = 'brand-meta'
 
-[[menu.social]]
-identifier = 'linkedin'
-name = 'LinkedIn'
-url = 'https://www.linkedin.com/in/michael-zheng58'
+# [[menu.social]]
+# identifier = 'linkedin'
+# name = 'LinkedIn'
+# url = 'https://www.linkedin.com/in/michael-zheng58'
 
-[menu.social.params]
-icon = 'brand-linkedin'
+# [menu.social.params]
+# icon = 'brand-linkedin'
 
 [params.widgets]
     homepage = [
