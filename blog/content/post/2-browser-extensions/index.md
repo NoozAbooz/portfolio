@@ -1,6 +1,6 @@
 ---
 title: Practical Browser Extensions
-description: My personal list of goated extensions for Chromium derivatives and Firefox.
+description: Useful extensions for Chromium derivatives and Firefox.
 date: 2026-02-10 11:12:00+0000
 # image: cover.jpg
 categories: 

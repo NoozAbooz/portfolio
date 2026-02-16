@@ -1,17 +1,22 @@
 ---
-title: Recover lost data from a closed browser tab
-description: Using a hex editor to recover cached data.
+title: DIY VEX Robotics Competition Swtiches
+description: A tutorial on how to design and order comp switch PCBs to use in VRC.
 date: 2026-02-11 11:12:00+0000
 # image: cover.jpg
 categories: 
-  - miscellaneous
+  - hardware
+  - VEX 
 tags:
-  - tips
-  - browser
 draft: true
 ---
 
-This post is based on https://www.reddit.com/r/LifeProTips/comments/1hyrnv/lpt_recover_lost_text_youve_typed_in_a_form_on/.
+In 2025, VEX Robotics discontinued their "Competition Switch", which would plug into V5 controllers and simultate having a real Field Controller plugged in. 
+![VEX Part 276-2335](image.png) </br>
+
+Timing Comp switch for inspiration: https://www.vexforum.com/t/a-timing-competition-switch/102689
+PDF guide on making them: https://static.rapidonline.com/downloads/vex/Make-Competition-Switch.pdf
+ez inspiration: https://roboticsisez.com/products/mini-comp-switch
+schmatic: https://content.vexrobotics.com/docs/VEXnet%20Comp%20Sw%20Diagram.pdf
 
 In the spirit of my previous post, I thought it would be fun to share some of my favorite browser extensions that I use on a daily basis. These extensions are compatible with Chromium derivatives (like Google Chrome and Microsoft Edge) and Firefox, so you can easily find them in your browser's extension store.
 
