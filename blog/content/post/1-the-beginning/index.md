@@ -13,7 +13,7 @@ links:
     description: A Google Doc for infodumping my past 3.5 years of experience programming VEX robots.
     website: https://docs.google.com/document/d/1IIstoJvNzIqf936l85G9cJZzr8bikWF6y4V8Ij17zrg/edit?usp=sharing
     image: https://w7.pngwing.com/pngs/173/232/png-transparent-google-drive-google-docs-google-logo-google-angle-rectangle-triangle-thumbnail.png
-
+draft: true
 ---
 
 With 2025 having already been over for 28 days, I think now is a perfectly sufficient time to reflect on the past year.
