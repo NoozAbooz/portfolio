@@ -20,7 +20,7 @@ favicon = 'https://raw.githubusercontent.com/NoozAbooz/nooz.dev/d6726961d44053c9
 
 [params.sidebar]
 emoji = ''
-subtitle = 'Student, PCB Hobbyist'
+subtitle = 'Electrical Engineering Student'
 
 [params.sidebar.avatar]
 enabled = true
@@ -54,8 +54,8 @@ icon = 'brand-meta'
 [params.widgets]
     homepage = [
         { type = "search" },
-        { type = "archives", params = { limit = 5 } },
+        #{ type = "archives", params = { limit = 5 } },
         { type = "categories", params = { limit = 10 } },
-        { type = "tag-cloud", params = { limit = 10 } },
+        #{ type = "tag-cloud", params = { limit = 10 } },
     ]
     page = [{ type = "toc" }]
