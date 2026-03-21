@@ -10,6 +10,7 @@ import App from './App.vue'
 import Home from './pages/Home.vue'
 import Projects from './pages/Projects.vue'
 import Friends from './pages/Friends.vue'
+import NotFound from './pages/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -17,6 +18,7 @@ const router = createRouter({
     { path: '/', component: Home },
     { path: '/projects', component: Projects },
     { path: '/friends', component: Friends },
+    { path: '/:pathMatch(.*)*', component: NotFound },
   ],
 })
 
