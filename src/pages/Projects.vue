@@ -5,10 +5,12 @@
                 Back to Home
             </v-btn>
 
-            <h1 class="md:text-h1 sm:text-h2 font-weight-bold mb-3 title-wrap">
+            <h1 class="md:text-h1 sm:text-h2 text-md-h1 font-weight-bold mb-3 title-wrap">
                 <span class="climate-font">Projects</span>
             </h1>
-            <p class="text-h6 text-medium-emphasis mb-6">List of projects I've built and (maybe) maintain</p>
+            <p class="text-h6 text-medium-emphasis mb-6">
+                List of projects I've built and (maybe) maintain
+            </p>
 
             <v-row dense>
                 <v-col v-for="project in projects" :key="project.title" cols="12">
