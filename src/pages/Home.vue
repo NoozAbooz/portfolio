@@ -18,7 +18,7 @@
                   </h1>
 
                   <p class="text-h6 text-medium-emphasis mb-4">
-                    Canadian electrical engineering student
+                    I make circuits and build hardware.
                   </p>
 
                   <div class="mb-6">
