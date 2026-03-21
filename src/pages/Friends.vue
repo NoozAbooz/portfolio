@@ -5,7 +5,7 @@
         Back to Home
       </v-btn>
 
-      <h1 class="text-h2 text-md-h1 font-weight-bold mb-3 title-wrap">
+      <h1 class="md:text-h1 sm:text-h2 text-md-h1 font-weight-bold mb-3 title-wrap">
         <span class="climate-font">Friends</span>
       </h1>
       <p class="text-h6 text-medium-emphasis mb-6">
