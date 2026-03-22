@@ -18,7 +18,7 @@
                   </h1>
 
                   <p class="text-h6 text-medium-emphasis mb-4">
-                    I make circuits and build hardware.
+                    I make circuit boards and contribute to FOSS software.
                   </p>
 
                   <div class="mb-6">
@@ -37,9 +37,9 @@
                       color="secondary-container">
                       GitHub
                     </v-btn>
-                    <v-btn href="https://blog.nooz.dev" target="_blank" variant="flat" prepend-icon="mdi-post-outline"
+                    <v-btn to="/friends" variant="flat" prepend-icon="mdi-account-multiple"
                       color="secondary-container">
-                      Blog
+                      Friends
                     </v-btn>
 
                     <v-menu transition="fast-scale-transition" location="bottom end" :close-delay="50" :open-delay="0">
@@ -91,8 +91,8 @@
                     <v-btn to="/projects" variant="flat" color="primary" prepend-icon="mdi-folder-multiple">
                       Projects
                     </v-btn>
-                    <v-btn to="/friends" variant="flat" color="primary" prepend-icon="mdi-account-multiple">
-                      Friends
+                    <v-btn href="https://blog.nooz.dev" target="_blank" variant="flat" color="primary" prepend-icon="mdi-post-outline">
+                      Blog
                     </v-btn>
                   </div>
                 </div>

@@ -11,7 +11,7 @@
             </h1>
 
             <p class="text-h6 text-medium-emphasis mb-8">
-              The page you requested does not exist or may have been moved.
+              Shucks! The page you requested does not exist or may have been moved.
             </p>
 
             <div class="d-flex flex-wrap justify-center ga-3">
