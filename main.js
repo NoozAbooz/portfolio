@@ -6,6 +6,56 @@ import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 
+const MOBILE_WARNING_STORAGE_KEY = "mobile-warning-dismissed";
+const NORMAL_PORTFOLIO_URL = "https://nooz.dev";
+
+function isLikelyMobileDevice() {
+  const mobileUserAgentPattern =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+  const userAgent = navigator.userAgent || "";
+  const isSmallViewport = window.matchMedia("(max-width: 639px)").matches;
+  const hasCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  const hasTouchInput = navigator.maxTouchPoints > 0;
+
+  return (
+    mobileUserAgentPattern.test(userAgent) ||
+    (isSmallViewport && hasCoarsePointer && hasTouchInput)
+  );
+}
+
+function setupMobileWarningToast() {
+  const toast = document.getElementById("mobile-warning-toast");
+  const continueButton = document.getElementById("mobile-continue-button");
+  const portfolioLink = document.getElementById("mobile-portfolio-link");
+
+  if (!toast || !continueButton || !portfolioLink) {
+    return;
+  }
+
+  portfolioLink.href = NORMAL_PORTFOLIO_URL;
+
+  if (!isLikelyMobileDevice()) {
+    return;
+  }
+
+  if (sessionStorage.getItem(MOBILE_WARNING_STORAGE_KEY) === "true") {
+    return;
+  }
+
+  toast.hidden = false;
+  requestAnimationFrame(() => {
+    toast.classList.add("is-visible");
+  });
+
+  continueButton.addEventListener("click", () => {
+    sessionStorage.setItem(MOBILE_WARNING_STORAGE_KEY, "true");
+    toast.classList.remove("is-visible");
+    window.setTimeout(() => {
+      toast.hidden = true;
+    }, 220);
+  });
+}
+
 // Create twinkling stars for loading screen
 function createLoadingStars() {
   const loadingContainer = document.querySelector(".loading");
@@ -94,6 +144,7 @@ THREE.DefaultLoadingManager.onLoad = function () {
       setTimeout(() => {
         loadingScreen.className = "hidden";
         document.getElementById("content").style.visibility = "visible";
+        setupMobileWarningToast();
       }, 500); // Wait for fade transition
     }
   }, 300);
