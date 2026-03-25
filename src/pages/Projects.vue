@@ -47,6 +47,11 @@
                                     </div>
                                 </v-col>
 
+                                <v-col v-if="project.image" cols="12" md="3" class="d-flex align-center">
+                                    <v-img :src="project.image" :alt="`${project.title} preview`" class="project-image-preview"
+                                        contain @click="openLightbox(project)" />
+                                </v-col>
+
                                 <v-col cols="12" md="auto">
                                     <div class="d-flex flex-column ga-2">
                                         <v-btn v-for="link in project.links" :key="link.text" :href="link.url"
@@ -62,11 +67,25 @@
                 </v-col>
             </v-row>
         </div>
+
+        <v-dialog v-model="lightboxOpen" max-width="1200">
+            <v-card color="surface-container-high">
+                <v-card-title class="d-flex align-center justify-space-between">
+                    <span class="text-h6">{{ activeProject?.title }}</span>
+                    <v-btn icon="mdi-close" variant="text" @click="lightboxOpen = false" />
+                </v-card-title>
+                <v-card-text class="pa-2 pa-md-4">
+                    <v-img v-if="activeProject?.image" :src="activeProject.image" :alt="`${activeProject.title} full image`"
+                        class="project-image-lightbox" contain />
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </v-container>
 </template>
 
 <script setup lang="ts">
 // Material 3 Projects page component
+import { ref } from 'vue'
 
 interface ProjectData {
     repo: string
@@ -75,12 +94,14 @@ interface ProjectData {
     counters?: string
     website?: string
     logo?: string
+    image?: string
 }
 
 interface ProcessedProject {
     title: string
     description: string
     logo?: string
+    image?: string
     languages: Array<{ name: string; color: string; icon: string; image?: string }>
     badges: string[]
     links: Array<{ text: string; url: string; icon: string }>
@@ -93,7 +114,8 @@ const projectsData: ProjectData[] = [
         description: 'Among Us-themed Linux distribution, based on Debian',
         counters: 'stars,downloads',
         website: 'https://amog-os.github.io',
-        logo: 'https://avatars.githubusercontent.com/u/92421659?s=200&v=4'
+        logo: 'https://avatars.githubusercontent.com/u/92421659?s=200&v=4',
+        image: 'https://camo.githubusercontent.com/141b5cf8e0965626397f2321e3a3aaf5ec33c7b01f1eaad5ca6aa1cb668366bd/68747470733a2f2f692e706f7374696d672e63632f6d32596d397158742f3133303533333936382d64373937653833642d653634332d346336322d393236342d3764343663326236376234382e706e67',
     },
     {
         repo: 'NoozAbooz/210K-PushBack-2026',
@@ -108,16 +130,18 @@ const projectsData: ProjectData[] = [
         languages: 'c++',
         description: 'Extended modding fork for Minecraft Pi Edition [🪦]',
         counters: 'stars,downloads',
-        logo: 'https://github.com/NoozAbooz/mcpi-reborn-extended/blob/main/logo.png?raw=true'
+        logo: 'https://github.com/NoozAbooz/mcpi-reborn-extended/blob/main/logo.png?raw=true',
+        image: 'https://private-user-images.githubusercontent.com/44128563/241611767-bcfab15a-ef0b-4601-b614-81e203945bcd.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQzOTc1MTEsIm5iZiI6MTc3NDM5NzIxMSwicGF0aCI6Ii80NDEyODU2My8yNDE2MTE3NjctYmNmYWIxNWEtZWYwYi00NjAxLWI2MTQtODFlMjAzOTQ1YmNkLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzI1VDAwMDY1MVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTkyYjhhZmViYzk0ODJjMmY4MDliNzQwMzk1YjJjY2UyZDVhZDJjMzA1YTdlZjBmYTNjODBjOWMzM2M1MWYzYjkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.QkRT7ZV0Ce_-Lld6TUKZAeu-Pr1qmDl-dIy2DzukzOI',
     },
     {
         repo: 'NoozAbooz/NoozBoard',
         languages: 'kicad',
         description: 'A custom devboard for the RP2040 microcontroller',
+        image: 'https://private-user-images.githubusercontent.com/44128563/506831336-97eca597-97be-41b6-b7b5-8578fe9f976b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQzOTc0MDcsIm5iZiI6MTc3NDM5NzEwNywicGF0aCI6Ii80NDEyODU2My81MDY4MzEzMzYtOTdlY2E1OTctOTdiZS00MWI2LWI3YjUtODU3OGZlOWY5NzZiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzI1VDAwMDUwN1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTM1Yzk0MWMyYjIxOTQwYjUzYzlmNzhiNTA5YjI3OTU4MmJmYjc5NjljNGQ4MjRkMjVjODZiYzIwYWI5M2U0NTYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.Xc3oTkaAidnpf9IiHMPmcio-Xr9Zx7eRts3jqo1gSyI'
     },
     {
         repo: 'NoozAbooz/robotevents-scout',
-        languages: 'javascript',
+        languages: 'vex,javascript',
         description: 'Chrome extension for pulling API statistics on robotevents.com',
         logo: 'https://github.com/NoozAbooz/robotevents-scout/blob/main/media/icon128.png?raw=true'
     },
@@ -194,6 +218,7 @@ function processProjects(data: ProjectData[]): ProcessedProject[] {
             title,
             description: project.description,
             logo: project.logo,
+            image: project.image,
             languages,
             badges,
             links
@@ -202,6 +227,13 @@ function processProjects(data: ProjectData[]): ProcessedProject[] {
 }
 
 const projects = processProjects(projectsData)
+const lightboxOpen = ref(false)
+const activeProject = ref<ProcessedProject | null>(null)
+
+function openLightbox(project: ProcessedProject): void {
+    activeProject.value = project
+    lightboxOpen.value = true
+}
 </script>
 
 <style scoped>
@@ -232,5 +264,18 @@ const projects = processProjects(projectsData)
     overflow-wrap: break-word;
     hyphens: auto;
     max-width: 100%;
+}
+
+.project-image-preview {
+    border-radius: 14px;
+    cursor: zoom-in;
+    width: 100%;
+    height: auto;
+    max-height: 220px;
+    background-color: rgba(var(--v-theme-surface-variant), 0.35);
+}
+
+.project-image-lightbox {
+    max-height: 78vh;
 }
 </style>
