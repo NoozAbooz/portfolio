@@ -49,6 +49,16 @@ function setupMobileWarningToast() {
     return;
   }
 
+  const navigateToPortfolio = (event) => {
+    event.preventDefault();
+    window.location.assign(NORMAL_PORTFOLIO_URL);
+  };
+
+  portfolioLink.addEventListener("pointerdown", navigateToPortfolio, {
+    passive: false,
+  });
+  portfolioLink.addEventListener("click", navigateToPortfolio);
+
   toast.hidden = false;
   requestAnimationFrame(() => {
     toast.classList.add("is-visible");

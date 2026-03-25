@@ -190,6 +190,7 @@ html::-webkit-scrollbar {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    touch-action: manipulation;
     appearance: none;
     border: 0;
     border-radius: 999px;
