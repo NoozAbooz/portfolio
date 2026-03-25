@@ -8,6 +8,7 @@ import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 
 const MOBILE_WARNING_STORAGE_KEY = "mobile-warning-dismissed";
 const NORMAL_PORTFOLIO_URL = "https://nooz.dev";
+let hasInitializedMobileWarningToast = false;
 
 function isLikelyMobileDevice() {
   const mobileUserAgentPattern =
@@ -24,6 +25,10 @@ function isLikelyMobileDevice() {
 }
 
 function setupMobileWarningToast() {
+  if (hasInitializedMobileWarningToast) {
+    return;
+  }
+
   const toast = document.getElementById("mobile-warning-toast");
   const continueButton = document.getElementById("mobile-continue-button");
   const portfolioLink = document.getElementById("mobile-portfolio-link");
@@ -31,6 +36,8 @@ function setupMobileWarningToast() {
   if (!toast || !continueButton || !portfolioLink) {
     return;
   }
+
+  hasInitializedMobileWarningToast = true;
 
   portfolioLink.href = NORMAL_PORTFOLIO_URL;
 
@@ -55,6 +62,8 @@ function setupMobileWarningToast() {
     }, 220);
   });
 }
+
+setupMobileWarningToast();
 
 // Create twinkling stars for loading screen
 function createLoadingStars() {
@@ -144,7 +153,6 @@ THREE.DefaultLoadingManager.onLoad = function () {
       setTimeout(() => {
         loadingScreen.className = "hidden";
         document.getElementById("content").style.visibility = "visible";
-        setupMobileWarningToast();
       }, 500); // Wait for fade transition
     }
   }, 300);
