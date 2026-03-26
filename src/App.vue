@@ -3,10 +3,13 @@
     <v-main>
       <router-view />
     </v-main>
+    <Analytics />
   </v-app>
 </template>
 
 <script setup lang="ts">
+import { Analytics } from '@vercel/analytics/vue'
+
 // Material 3 expressive design root component
 </script>
 
