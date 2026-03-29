@@ -202,9 +202,8 @@
 
 @media (max-width: 600px) {
   .discord-embed-wrap {
-    left: 16px;
-    right: 16px;
-    bottom: 0px;
+    position: static;
+    margin: 16px;
     transform: none;
   }
 
