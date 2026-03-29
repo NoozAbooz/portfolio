@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="fill-height bg-surface">
+  <v-container fluid class="fill-height bg-surface home-page-container">
     <v-row justify="center" align="center">
       <v-col cols="auto" style="max-width: 100%">
         <v-card color="surface-container-high" class="mx-auto">
@@ -101,8 +101,17 @@
 
           </v-card-text>
         </v-card>
+
       </v-col>
     </v-row>
+
+    <div class="discord-embed-wrap text-center">
+      <a href="https://discord.com/users/606191901871439903" target="_blank" rel="noopener noreferrer"
+        class="discord-embed-link" aria-label="Open Discord profile">
+        <img src="https://lanyard.cnrad.dev/api/606191901871439903?hideBadges=true&borderRadius=50&hideProfile=true&bg=2b2930"
+          alt="Discord profile status" class="discord-embed-img" loading="lazy" />
+      </a>
+    </div>
   </v-container>
 </template>
 
@@ -165,6 +174,44 @@
   min-width: 48px !important;
   width: 48px !important;
   padding: 0 8px !important;
+}
+
+.home-page-container {
+  position: relative;
+}
+
+.discord-embed-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.discord-embed-link {
+  display: inline-flex;
+  width: min(100%, 340px);
+}
+
+.discord-embed-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+@media (max-width: 600px) {
+  .discord-embed-wrap {
+    left: 16px;
+    right: 16px;
+    bottom: 0px;
+    transform: none;
+  }
+
+  .discord-embed-link {
+    width: 100%;
+    max-width: none;
+  }
 }
 
 /* Fast scale transition for quick menu opening */
