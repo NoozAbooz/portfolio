@@ -154,15 +154,15 @@ interface FriendState {
 
 const friendsConfig: FriendConfig[] = [
   {
-    username: 'Sir-Encoded',
-    displayName: 'Sir-Encoded',
-    note: 'Cool person I know who builds awesome stuff',
-  },
-  {
     username: 'Botspot',
     displayName: 'Botspot',
     avatarOverride: 'https://github.com/Botspot.png',
-  }
+  },
+  {
+    username: 'Sir-Encoded',
+    displayName: 'Sir-Encoded',
+    note: 'kawaii frog',
+  },
 ]
 
 const friendStates = ref<FriendState[]>(
