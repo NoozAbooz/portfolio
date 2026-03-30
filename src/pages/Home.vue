@@ -108,7 +108,7 @@
     <div class="discord-embed-wrap text-center">
       <a href="https://discord.com/users/606191901871439903" target="_blank" rel="noopener noreferrer"
         class="discord-embed-link" aria-label="Open Discord profile">
-        <img src="https://lanyard.cnrad.dev/api/606191901871439903?hideBadges=true&borderRadius=50&hideProfile=true&bg=2b2930"
+        <img src="https://lanyard.cnrad.dev/api/606191901871439903?hideBadges=true&borderRadius=50&hideProfile=true&bg=2b2930&idleMessage=🎵 Hiding in your Wi-Fi 🎵"
           alt="Discord profile status" class="discord-embed-img" loading="lazy" />
       </a>
     </div>
