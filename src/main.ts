@@ -8,17 +8,14 @@ import '@mdi/font/css/materialdesignicons.css'
 
 import App from './App.vue'
 import Home from './pages/Home.vue'
-import Projects from './pages/Projects.vue'
-import Social from './pages/Social.vue'
-import NotFound from './pages/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: Home },
-    { path: '/projects', component: Projects },
-    { path: '/social', component: Social },
-    { path: '/:pathMatch(.*)*', component: NotFound },
+    { path: '/projects', component: () => import('./pages/Projects.vue') },
+    { path: '/social', component: () => import('./pages/Social.vue') },
+    { path: '/:pathMatch(.*)*', component: () => import('./pages/NotFound.vue') },
   ],
 })
 

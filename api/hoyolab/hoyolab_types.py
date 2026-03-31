@@ -56,3 +56,4 @@ class HoyolabOutput(TypedDict):
     ts: int
     hkrpg: Optional[GameData]  # Honkai: Star Rail
     nap: Optional[GameData]    # Zenless Zone Zero
+    gi: Optional[GameData]     # Genshin Impact

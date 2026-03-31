@@ -30,8 +30,17 @@ async def hoyolab() -> JSONResponse:
 
     hsr_uid = _parse_uid("HSR_UID")
     zzz_uid = _parse_uid("ZZZ_UID")
-    if not hsr_uid and not zzz_uid:
-        raise HTTPException(status_code=500, detail="Set at least one of HSR_UID or ZZZ_UID")
+    gi_uid = _parse_uid("GI_UID")
+    if not hsr_uid and not zzz_uid and not gi_uid:
+        raise HTTPException(
+            status_code=500,
+            detail="Set at least one of HSR_UID, ZZZ_UID, or GI_UID",
+        )
 
-    data = await get_hoyolab_data(cookie, hsr_uid=hsr_uid, zzz_uid=zzz_uid)
+    data = await get_hoyolab_data(
+        cookie,
+        hsr_uid=hsr_uid,
+        zzz_uid=zzz_uid,
+        gi_uid=gi_uid,
+    )
     return JSONResponse(content=data, headers={"Cache-Control": "no-store"})

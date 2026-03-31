@@ -115,6 +115,43 @@
   </v-container>
 </template>
 
+<script setup lang="ts">
+import { onMounted } from 'vue'
+
+function appendPrefetchLink(href: string) {
+  if (document.head.querySelector(`link[rel="prefetch"][href="${href}"]`)) {
+    return
+  }
+
+  const link = document.createElement('link')
+  link.rel = 'prefetch'
+  link.as = 'document'
+  link.href = href
+  document.head.appendChild(link)
+}
+
+function preloadPages() {
+  // Warm route chunks for faster first navigation.
+  void import('./Social.vue')
+  void import('./Projects.vue')
+  appendPrefetchLink('/social')
+  appendPrefetchLink('/projects')
+}
+
+onMounted(() => {
+  const requestIdle = (window as Window & {
+    requestIdleCallback?: (callback: () => void) => number
+  }).requestIdleCallback
+
+  if (requestIdle) {
+    requestIdle(preloadPages)
+    return
+  }
+
+  setTimeout(preloadPages, 120)
+})
+</script>
+
 <style scoped>
 /* Material 3 compliant styles - no custom backdrop filters or glows */
 

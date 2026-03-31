@@ -15,9 +15,25 @@
               Lv. {{ gameData.player.info.level }}
             </v-chip>
           </div>
-          <p class="text-body-2 text-medium-emphasis mb-0">
-            {{ gameData.player.info.uid }}
-          </p>
+          <div class="d-flex align-center ga-1">
+            <p class="text-body-2 text-medium-emphasis mb-0">
+              UID: {{ gameData.player.info.uid }}
+            </p>
+            <v-tooltip :text="copiedUid ? 'Copied' : 'Copy UID'" location="top">
+              <template #activator="{ props: tooltipProps }">
+                <v-btn
+                  v-bind="tooltipProps"
+                  icon="mdi-content-copy"
+                  variant="text"
+                  size="x-small"
+                  density="comfortable"
+                  class="uid-copy-btn"
+                  :aria-label="copiedUid ? 'UID copied' : 'Copy UID'"
+                  @click="copyUid"
+                />
+              </template>
+            </v-tooltip>
+          </div>
         </div>
       </div>
     </div>
@@ -43,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 interface GameData {
   player: {
@@ -84,9 +100,23 @@ interface GameData {
 
 const props = defineProps<{
   gameData: GameData
-  gameKey: 'hkrpg' | 'nap'
+  gameKey: 'hkrpg' | 'nap' | 'gi'
   gameTitle: string
 }>()
+
+const copiedUid = ref(false)
+
+async function copyUid() {
+  try {
+    await navigator.clipboard.writeText(props.gameData.player.info.uid)
+    copiedUid.value = true
+    setTimeout(() => {
+      copiedUid.value = false
+    }, 1400)
+  } catch {
+    copiedUid.value = false
+  }
+}
 
 const bannerStyle = computed(() => {
   const background = props.gameData.player.info.images.background
@@ -104,17 +134,32 @@ const bannerStyle = computed(() => {
 
 const overviewStats = computed(() => {
   const stats = props.gameData.player.stats
+
+  const characterLabel =
+    props.gameKey === 'hkrpg'
+      ? 'Characters'
+      : props.gameKey === 'nap'
+        ? 'Agents'
+        : 'Characters'
+
+  const abyssLabel =
+    props.gameKey === 'hkrpg'
+      ? 'MoC'
+      : props.gameKey === 'nap'
+        ? 'Proxy'
+        : 'Abyss'
+
   return [
     {
       label: 'Active days',
       value: stats.activeDays,
     },
     {
-      label: props.gameKey === 'hkrpg' ? 'Characters' : 'Agents',
+      label: characterLabel,
       value: stats.avatarNum,
     },
     {
-      label: props.gameKey === 'hkrpg' ? 'MoC' : 'Proxy',
+      label: abyssLabel,
       value: stats.abyssProcess ?? '--',
     },
     {
@@ -130,9 +175,24 @@ const overviewStats = computed(() => {
 
 const realtimeStats = computed(() => {
   const realtime = props.gameData.realtime
+
+  const staminaLabel =
+    props.gameKey === 'hkrpg'
+      ? 'Power'
+      : props.gameKey === 'nap'
+        ? 'Battery'
+        : 'Resin'
+
+  const dailyLabel =
+    props.gameKey === 'hkrpg'
+      ? 'Training'
+      : props.gameKey === 'nap'
+        ? 'Daily task'
+        : 'Commission'
+
   return [
     {
-      label: props.gameKey === 'hkrpg' ? 'Power' : 'Battery',
+      label: staminaLabel,
       value: realtime.stamina.amount,
     },
     {
@@ -140,7 +200,7 @@ const realtimeStats = computed(() => {
       value: realtime.expedition,
     },
     {
-      label: props.gameKey === 'hkrpg' ? 'Training' : 'Daily task',
+      label: dailyLabel,
       value: realtime.daily.task,
     },
     {
@@ -168,6 +228,15 @@ const realtimeStats = computed(() => {
 
 .hoyo-avatar {
   border: 1px solid rgba(var(--v-theme-outline-variant), 0.65);
+}
+
+.uid-copy-btn {
+  opacity: 0.85;
+}
+
+.uid-copy-btn:hover {
+  opacity: 1;
+  background: rgba(var(--v-theme-on-surface), 0.08);
 }
 
 .stats-grid {

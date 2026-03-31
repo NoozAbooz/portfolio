@@ -143,7 +143,7 @@ const projectsData: ProjectData[] = [
         repo: 'NoozAbooz/robotevents-scout',
         languages: 'vex,javascript',
         description: 'Chrome extension for pulling API statistics on robotevents.com',
-        logo: 'https://github.com/NoozAbooz/robotevents-scout/blob/main/media/icon128.png?raw=true',
+        logo: 'https://raw.githubusercontent.com/NoozAbooz/robotevents-scout/refs/heads/main/media/icon128.png',
         website: 'https://chromewebstore.google.com/detail/robotevents-scout/alegfajancalbhjcnlmgjdckkloglaic'
     },
     {

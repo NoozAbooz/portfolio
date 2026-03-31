@@ -86,6 +86,7 @@ interface HoyolabResponse {
   ts: number
   hkrpg?: GameData
   nap?: GameData
+  gi?: GameData
 }
 
 const loading = ref(true)
@@ -93,7 +94,7 @@ const error = ref<string | null>(null)
 const payload = ref<HoyolabResponse | null>(null)
 
 const gameCards = computed(() => {
-  const output: Array<{ key: 'hkrpg' | 'nap'; title: string; data: GameData }> = []
+  const output: Array<{ key: 'hkrpg' | 'nap' | 'gi'; title: string; data: GameData }> = []
   if (payload.value?.hkrpg) {
     output.push({
       key: 'hkrpg',
@@ -107,6 +108,14 @@ const gameCards = computed(() => {
       key: 'nap',
       title: 'Zenless Zone Zero',
       data: payload.value.nap,
+    })
+  }
+
+  if (payload.value?.gi) {
+    output.push({
+      key: 'gi',
+      title: 'Genshin Impact',
+      data: payload.value.gi,
     })
   }
 
@@ -125,7 +134,7 @@ async function loadHoyolabData() {
 
     payload.value = (await response.json()) as HoyolabResponse
   } catch {
-    error.value = 'Check Vercel environment variables and API route setup.'
+    error.value = 'Check API route setup.'
   } finally {
     loading.value = false
   }
