@@ -115,7 +115,7 @@ const projectsData: ProjectData[] = [
         counters: 'stars,downloads',
         website: 'https://amog-os.github.io',
         logo: 'https://avatars.githubusercontent.com/u/92421659?s=200&v=4',
-        image: 'https://camo.githubusercontent.com/141b5cf8e0965626397f2321e3a3aaf5ec33c7b01f1eaad5ca6aa1cb668366bd/68747470733a2f2f692e706f7374696d672e63632f6d32596d397158742f3133303533333936382d64373937653833642d653634332d346336322d393236342d3764343663326236376234382e706e67',
+        image: 'https://user-images.githubusercontent.com/44128563/119536694-98920980-bd46-11eb-950e-425475bb90ac.png',
     },
     {
         repo: 'NoozAbooz/210K-PushBack-2026',
@@ -131,19 +131,20 @@ const projectsData: ProjectData[] = [
         description: 'Extended modding fork for Minecraft Pi Edition [🪦]',
         counters: 'stars,downloads',
         logo: 'https://github.com/NoozAbooz/mcpi-reborn-extended/blob/main/logo.png?raw=true',
-        image: 'https://private-user-images.githubusercontent.com/44128563/241611767-bcfab15a-ef0b-4601-b614-81e203945bcd.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQzOTc1MTEsIm5iZiI6MTc3NDM5NzIxMSwicGF0aCI6Ii80NDEyODU2My8yNDE2MTE3NjctYmNmYWIxNWEtZWYwYi00NjAxLWI2MTQtODFlMjAzOTQ1YmNkLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzI1VDAwMDY1MVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTkyYjhhZmViYzk0ODJjMmY4MDliNzQwMzk1YjJjY2UyZDVhZDJjMzA1YTdlZjBmYTNjODBjOWMzM2M1MWYzYjkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.QkRT7ZV0Ce_-Lld6TUKZAeu-Pr1qmDl-dIy2DzukzOI',
+        image: 'https://github.com/NoozSBC/mcpi-reborn-extended/assets/44128563/bcfab15a-ef0b-4601-b614-81e203945bcd',
     },
     {
         repo: 'NoozAbooz/NoozBoard',
         languages: 'kicad',
         description: 'A custom devboard for the RP2040 microcontroller',
-        image: 'https://private-user-images.githubusercontent.com/44128563/506831336-97eca597-97be-41b6-b7b5-8578fe9f976b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQzOTc0MDcsIm5iZiI6MTc3NDM5NzEwNywicGF0aCI6Ii80NDEyODU2My81MDY4MzEzMzYtOTdlY2E1OTctOTdiZS00MWI2LWI3YjUtODU3OGZlOWY5NzZiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzI1VDAwMDUwN1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTM1Yzk0MWMyYjIxOTQwYjUzYzlmNzhiNTA5YjI3OTU4MmJmYjc5NjljNGQ4MjRkMjVjODZiYzIwYWI5M2U0NTYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.Xc3oTkaAidnpf9IiHMPmcio-Xr9Zx7eRts3jqo1gSyI'
+        image: 'https://github.com/user-attachments/assets/97eca597-97be-41b6-b7b5-8578fe9f976b'
     },
     {
         repo: 'NoozAbooz/robotevents-scout',
         languages: 'vex,javascript',
         description: 'Chrome extension for pulling API statistics on robotevents.com',
-        logo: 'https://github.com/NoozAbooz/robotevents-scout/blob/main/media/icon128.png?raw=true'
+        logo: 'https://github.com/NoozAbooz/robotevents-scout/blob/main/media/icon128.png?raw=true',
+        website: 'https://chromewebstore.google.com/detail/robotevents-scout/alegfajancalbhjcnlmgjdckkloglaic'
     },
     {
         repo: 'NoozAbooz/Milkis-Discord-Bot',

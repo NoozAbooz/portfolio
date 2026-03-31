@@ -1,5 +1,12 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  "experimentalServices": {
+    "web": {
+      "entrypoint": "/",
+      "routePrefix": "/"
+    },
+    "api": {
+      "entrypoint": "api/hoyolab/main.py",
+      "routePrefix": "/api/hoyolab"
+    }
+  }
 }

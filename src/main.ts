@@ -9,7 +9,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import App from './App.vue'
 import Home from './pages/Home.vue'
 import Projects from './pages/Projects.vue'
-import Friends from './pages/Friends.vue'
+import Social from './pages/Social.vue'
 import NotFound from './pages/NotFound.vue'
 
 const router = createRouter({
@@ -17,7 +17,7 @@ const router = createRouter({
   routes: [
     { path: '/', component: Home },
     { path: '/projects', component: Projects },
-    { path: '/friends', component: Friends },
+    { path: '/social', component: Social },
     { path: '/:pathMatch(.*)*', component: NotFound },
   ],
 })

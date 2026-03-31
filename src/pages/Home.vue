@@ -37,9 +37,9 @@
                       color="secondary-container">
                       GitHub
                     </v-btn>
-                    <v-btn to="/friends" variant="flat" prepend-icon="mdi-account-multiple"
+                    <v-btn to="/social" variant="flat" prepend-icon="mdi-account-multiple"
                       color="secondary-container">
-                      Friends
+                      Social
                     </v-btn>
 
                     <v-menu transition="fast-scale-transition" location="bottom end" :close-delay="50" :open-delay="0">
