@@ -221,7 +221,6 @@ const realtimeStats = computed(() => {
   isolation: isolate;
   background-size: cover;
   background-position: center 28%;
-  border-bottom: 1px solid rgba(var(--v-theme-outline-variant), 0.5);
   overflow: hidden;
 }
 
@@ -234,8 +233,6 @@ const realtimeStats = computed(() => {
   height: 24px;
   pointer-events: none;
   z-index: 0;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   background: linear-gradient(
     180deg,
     rgba(var(--v-theme-surface-container-high), 0) 0%,

@@ -97,20 +97,7 @@ async def fetch_gi(client: genshin.Client, uid: int) -> GameData:
             or 0
         ),
         "images": {
-            "icon": _pick_attr(
-                gi_account,
-                "icon",
-                "avatar_url",
-                default="",
-            )
-            or _pick_attr(
-                user,
-                "profile_picture",
-                "in_game_avatar",
-                default="",
-            )
-            or _pick_attr(info, "profile_picture", "icon", "avatar", default="")
-            or "",
+            "icon": info.in_game_avatar or _pick_attr(gi_account, "icon", default="") or "",
             "background": _namecard_background(user),
         },
     }

@@ -40,7 +40,7 @@ async def fetch_zzz(client: genshin.Client, uid: int) -> GameData:
         "level": level,
         "images": {
             "icon":       user.in_game_avatar,  # cur_head_icon_url
-            "background": "",                   # not available in this endpoint
+            "background": user.in_game_data.card_url,  # namecard URL
         },
     }
 
@@ -86,7 +86,7 @@ async def fetch_zzz(client: genshin.Client, uid: int) -> GameData:
         weekly_boss = "0/0"
 
     # ZZZ has no expedition system
-    expedition = "0/0"
+    expedition = "N/A"
 
     realtime: dict = {
         "stamina":    stamina,
