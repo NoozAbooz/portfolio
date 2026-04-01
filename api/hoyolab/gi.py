@@ -33,8 +33,27 @@ def _seconds(value: object) -> int:
 
 def _namecard_background(user: object) -> str:
     namecard = _pick_attr(user, "namecard", "card", default=None)
-    if namecard is None:
-        return ""
+    if namecard is not None:
+        namecard_bg = _pick_attr(
+            namecard,
+            "banner",
+            "background",
+            "image",
+            "url",
+            default="",
+        )
+        if namecard_bg:
+            return namecard_bg
+
+    explorations = _pick_attr(user, "explorations", default=()) or ()
+    if explorations:
+        def _score(item: object) -> int:
+            return int(_pick_attr(item, "raw_explored", default=0) or 0)
+
+        top_exploration = max(explorations, key=_score)
+        exploration_bg = _pick_attr(top_exploration, "background_image", "cover", default="")
+        if exploration_bg:
+            return exploration_bg
 
     return _pick_attr(
         namecard,

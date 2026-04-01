@@ -118,6 +118,8 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 
+import { preloadHoyolabData } from '../hoyolabData'
+
 function appendPrefetchLink(href: string) {
   if (document.head.querySelector(`link[rel="prefetch"][href="${href}"]`)) {
     return
@@ -134,6 +136,7 @@ function preloadPages() {
   // Warm route chunks for faster first navigation.
   void import('./Social.vue')
   void import('./Projects.vue')
+  void preloadHoyolabData()
   appendPrefetchLink('/social')
   appendPrefetchLink('/projects')
 }

@@ -43,51 +43,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 
+import { getHoyolabData, type GameData, type HoyolabResponse } from '../hoyolabData'
 import HoyolabPlayerCard from './HoyolabPlayerCard.vue'
-
-interface GameData {
-  player: {
-    info: {
-      name: string
-      uid: string
-      level: number
-      images: {
-        icon: string
-        background: string
-      }
-    }
-    stats: {
-      activeDays: number
-      avatarNum: number
-      achievementNum: number | null
-      chestNum: number | null
-      abyssProcess: string | null
-    }
-  }
-  realtime: {
-    stamina: {
-      amount: string
-      recover: number
-      reserve?: {
-        amount: string
-        full: boolean
-      }
-    }
-    expedition: string
-    daily: {
-      task: string
-      extraReward?: boolean
-    }
-    weeklyBoss: string
-  }
-}
-
-interface HoyolabResponse {
-  ts: number
-  hkrpg?: GameData
-  nap?: GameData
-  gi?: GameData
-}
 
 const loading = ref(true)
 const error = ref<string | null>(null)
@@ -127,12 +84,7 @@ async function loadHoyolabData() {
   error.value = null
 
   try {
-    const response = await fetch('/api/hoyolab', { method: 'GET' })
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`)
-    }
-
-    payload.value = (await response.json()) as HoyolabResponse
+    payload.value = await getHoyolabData()
   } catch {
     error.value = 'Check API route setup.'
   } finally {
