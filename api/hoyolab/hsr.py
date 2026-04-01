@@ -19,8 +19,9 @@ async def fetch_hsr(client: genshin.Client, uid: int) -> GameData:
 
     user_task = asyncio.create_task(client.get_starrail_user(uid))
     note_task = asyncio.create_task(client.get_starrail_notes(uid))
+    challenge_task = asyncio.create_task(client.get_starrail_challenge(uid))
 
-    user, note = await asyncio.gather(user_task, note_task)
+    user, note, challenge = await asyncio.gather(user_task, note_task, challenge_task)
 
     # ── Player info ──────────────────────────────────────────────────────────
     # StarRailUserStats.info  →  StarRailUserInfo
@@ -48,7 +49,7 @@ async def fetch_hsr(client: genshin.Client, uid: int) -> GameData:
         "avatarNum":      s.avatar_num,
         "achievementNum": s.achievement_num,
         "chestNum":       s.chest_num,
-        "abyssProcess":   s.abyss_process or None,
+        "abyssProcess":   challenge.max_floor or None,
     }
 
     # ── Stamina ───────────────────────────────────────────────────────────────
