@@ -43,6 +43,7 @@ export interface HoyolabResponse {
 }
 
 const CACHE_TTL_MS = 5 * 60 * 1000
+const LOCAL_FALLBACK_URL = import.meta.env.VITE_HOYOLAB_LOCAL_URL || 'http://127.0.0.1:8000/'
 
 let cachedPayload: HoyolabResponse | null = null
 let cachedAt = 0
@@ -53,15 +54,26 @@ function hasFreshCache(): boolean {
 }
 
 async function fetchHoyolabData(): Promise<HoyolabResponse> {
-  const response = await fetch('/api/hoyolab', { method: 'GET' })
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`)
+  const requestHoyolab = async (url: string): Promise<HoyolabResponse> => {
+    const response = await fetch(url, { method: 'GET' })
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`)
+    }
+
+    return (await response.json()) as HoyolabResponse
   }
 
-  const payload = (await response.json()) as HoyolabResponse
-  cachedPayload = payload
-  cachedAt = Date.now()
-  return payload
+  try {
+    const payload = await requestHoyolab('/api/hoyolab')
+    cachedPayload = payload
+    cachedAt = Date.now()
+    return payload
+  } catch {
+    const payload = await requestHoyolab(LOCAL_FALLBACK_URL)
+    cachedPayload = payload
+    cachedAt = Date.now()
+    return payload
+  }
 }
 
 export async function getHoyolabData(forceRefresh = false): Promise<HoyolabResponse> {

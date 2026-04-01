@@ -7,4 +7,13 @@ export default defineConfig({
     vue(),
     vuetify({ autoImport: true }),
   ],
+  server: {
+    proxy: {
+      '/api/hoyolab': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+        rewrite: () => '/',
+      },
+    },
+  },
 })

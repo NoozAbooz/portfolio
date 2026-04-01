@@ -1,17 +1,29 @@
 from __future__ import annotations
 
-import os
-
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from core import get_hoyolab_data
+from env_utils import getenv_with_local_fallback
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:4173",
+        "http://127.0.0.1:4173",
+    ],
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
+
 
 def _parse_uid(name: str) -> int | None:
-    raw = os.getenv(name)
+    raw = getenv_with_local_fallback(name)
     if not raw:
         return None
 
@@ -23,7 +35,7 @@ def _parse_uid(name: str) -> int | None:
 
 @app.get("/")
 async def hoyolab() -> JSONResponse:
-    cookie = os.getenv("HOYO_COOKIE", "")
+    cookie = getenv_with_local_fallback("HOYO_COOKIE", "")
     if not cookie:
         raise HTTPException(status_code=500, detail="Missing HOYO_COOKIE environment variable")
 

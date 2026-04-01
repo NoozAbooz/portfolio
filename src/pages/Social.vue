@@ -144,7 +144,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
-import HoyolabSection from '../components/HoyolabSection.vue'
+import HoyolabSection from '../components/social/hoyolab/HoyolabSection.vue'
 
 interface SocialConfig {
   username: string

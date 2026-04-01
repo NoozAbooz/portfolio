@@ -128,7 +128,7 @@ const bannerStyle = computed(() => {
   }
 
   return {
-    backgroundImage: `url(${background})`,
+    backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.74) 100%), url(${background})`,
   }
 })
 
@@ -218,27 +218,11 @@ const realtimeStats = computed(() => {
 
 .hoyo-banner {
   position: relative;
-  overflow: hidden;
   isolation: isolate;
   background-size: cover;
-  background-position: center;
-}
-
-.hoyo-banner::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 110px;
-  background: linear-gradient(
-    180deg,
-    rgba(var(--v-theme-surface-container-high), 0) 0%,
-    rgba(var(--v-theme-surface-container-high), 0.6) 58%,
-    rgb(var(--v-theme-surface-container-high)) 100%
-  );
-  pointer-events: none;
-  z-index: 1;
+  background-position: center 28%;
+  border-bottom: 1px solid rgba(var(--v-theme-outline-variant), 0.5);
+  overflow: hidden;
 }
 
 .hoyo-banner::after {
@@ -246,24 +230,23 @@ const realtimeStats = computed(() => {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -34px;
-  height: 84px;
-  background: inherit;
-  background-size: cover;
-  background-position: center;
-  filter: blur(12px);
-  transform: scale(0.25);
-  opacity: 0.72;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.96) 24%, rgba(0, 0, 0, 0) 100%);
-  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.96) 24%, rgba(0, 0, 0, 0) 100%);
+  bottom: 0;
+  height: 24px;
   pointer-events: none;
   z-index: 0;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--v-theme-surface-container-high), 0) 0%,
+    rgba(var(--v-theme-surface-container-high), 0.58) 100%
+  );
 }
 
 .hoyo-banner-overlay {
-  min-height: 110px;
   position: relative;
-  z-index: 2;
+  z-index: 1;
+  min-height: 110px;
 }
 
 .hoyo-avatar {

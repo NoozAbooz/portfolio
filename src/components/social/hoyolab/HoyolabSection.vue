@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 
-import { getHoyolabData, type GameData, type HoyolabResponse } from '../hoyolabData'
+import { getHoyolabData, type GameData, type HoyolabResponse } from './hoyolabData'
 import HoyolabPlayerCard from './HoyolabPlayerCard.vue'
 
 const loading = ref(true)

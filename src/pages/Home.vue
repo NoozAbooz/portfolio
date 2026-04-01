@@ -118,7 +118,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 
-import { preloadHoyolabData } from '../hoyolabData'
+import { preloadHoyolabData } from '../components/social/hoyolab/hoyolabData'
 
 function appendPrefetchLink(href: string) {
   if (document.head.querySelector(`link[rel="prefetch"][href="${href}"]`)) {

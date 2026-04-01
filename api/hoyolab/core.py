@@ -17,13 +17,14 @@ from __future__ import annotations
 
 import asyncio
 import json
-import os
 import time
 
 import genshin
 
+from env_utils import getenv_with_local_fallback
 from gi import fetch_gi
 from hsr import fetch_hsr
+from hoyolab_types import GameData
 from zzz import fetch_zzz
 
 
@@ -43,47 +44,37 @@ async def get_hoyolab_data(
     client = genshin.Client(cookie, game=genshin.Game.STARRAIL)
 
     output: dict = {"ts": int(time.time() * 1000)}
-    jobs = []
+    tasks: dict[str, asyncio.Task[GameData]] = {}
 
     if hsr_uid:
-        async def _hsr():
-            try:
-                output["hkrpg"] = await fetch_hsr(client, hsr_uid)
-            except Exception as e:
-                print(f"[HSR] {type(e).__name__}: {e}")
-
-        jobs.append(_hsr())
+        tasks["hkrpg"] = asyncio.create_task(fetch_hsr(client, hsr_uid))
 
     if zzz_uid:
-        async def _zzz():
-            try:
-                output["nap"] = await fetch_zzz(client, zzz_uid)
-            except Exception as e:
-                print(f"[ZZZ] {type(e).__name__}: {e}")
-
-        jobs.append(_zzz())
+        tasks["nap"] = asyncio.create_task(fetch_zzz(client, zzz_uid))
 
     if gi_uid:
-        async def _gi():
-            try:
-                output["gi"] = await fetch_gi(client, gi_uid)
-            except Exception as e:
-                print(f"[GI] {type(e).__name__}: {e}")
+        tasks["gi"] = asyncio.create_task(fetch_gi(client, gi_uid))
 
-        jobs.append(_gi())
+    results = await asyncio.gather(*tasks.values(), return_exceptions=True)
 
-    await asyncio.gather(*jobs)
+    for game_key, result in zip(tasks.keys(), results):
+        if isinstance(result, Exception):
+            tag = {"hkrpg": "HSR", "nap": "ZZZ", "gi": "GI"}.get(game_key, game_key)
+            print(f"[{tag}] {type(result).__name__}: {result}")
+            continue
+        output[game_key] = result
+
     return output
 
 
 async def main() -> None:
-    cookie = os.getenv("HOYO_COOKIE", "")
+    cookie = getenv_with_local_fallback("HOYO_COOKIE", "")
     if not cookie:
         raise SystemExit("Set the HOYO_COOKIE environment variable before running.")
 
-    hsr_raw = os.getenv("HSR_UID")
-    zzz_raw = os.getenv("ZZZ_UID")
-    gi_raw = os.getenv("GI_UID")
+    hsr_raw = getenv_with_local_fallback("HSR_UID")
+    zzz_raw = getenv_with_local_fallback("ZZZ_UID")
+    gi_raw = getenv_with_local_fallback("GI_UID")
 
     hsr_uid = int(hsr_raw) if hsr_raw else None
     zzz_uid = int(zzz_raw) if zzz_raw else None
