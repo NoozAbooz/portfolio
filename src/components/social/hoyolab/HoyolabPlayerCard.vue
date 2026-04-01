@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <v-card-text class="pa-4 pa-md-5">
+    <v-card-text class="pa-4 pa-md-5 hoyo-content">
       <h3 class="text-h6 text-high-emphasis mb-3">Overview</h3>
       <div class="stats-grid mb-5">
         <div v-for="stat in overviewStats" :key="stat.label" class="stat-cell">
@@ -118,6 +118,33 @@ async function copyUid() {
   }
 }
 
+function formatRecoverTime(recoverSeconds: number): string {
+  const safeSeconds = Math.max(0, Math.floor(recoverSeconds || 0))
+  if (safeSeconds === 0) {
+    return '--'
+  }
+
+  const hours = Math.floor(safeSeconds / 3600)
+  const minutes = Math.floor((safeSeconds % 3600) / 60)
+  return `${hours}h ${minutes}m`
+}
+
+function normalizeDisplayValue(value: string | number | null | undefined): string | number {
+  if (value === null || value === undefined) {
+    return '--'
+  }
+
+  if (typeof value === 'string') {
+    const trimmed = value.trim()
+    if (trimmed === '' || trimmed === '-') {
+      return '--'
+    }
+    return trimmed
+  }
+
+  return value
+}
+
 const bannerStyle = computed(() => {
   const background = props.gameData.player.info.images.background
   if (!background) {
@@ -160,11 +187,11 @@ const overviewStats = computed(() => {
     },
     {
       label: abyssLabel,
-      value: stats.abyssProcess ?? '--',
+      value: normalizeDisplayValue(stats.abyssProcess),
     },
     {
       label: 'Chests',
-      value: stats.chestNum ?? '--',
+      value: stats.chestNum && stats.chestNum > 0 ? stats.chestNum : '--',
     },
     {
       label: 'Achievements',
@@ -196,6 +223,10 @@ const realtimeStats = computed(() => {
       value: realtime.stamina.amount,
     },
     {
+      label: 'Full recover',
+      value: formatRecoverTime(realtime.stamina.recover),
+    },
+    {
       label: 'Expeditions',
       value: realtime.expedition,
     },
@@ -220,7 +251,7 @@ const realtimeStats = computed(() => {
   position: relative;
   isolation: isolate;
   background-size: cover;
-  background-position: center 28%;
+  background-position: center 38%;
   overflow: hidden;
 }
 
@@ -230,20 +261,42 @@ const realtimeStats = computed(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 24px;
+  height: 60px;
   pointer-events: none;
   z-index: 0;
   background: linear-gradient(
     180deg,
     rgba(var(--v-theme-surface-container-high), 0) 0%,
-    rgba(var(--v-theme-surface-container-high), 0.58) 100%
+    rgba(var(--v-theme-surface-container-high), 0.14) 30%,
+    rgba(var(--v-theme-surface-container-high), 0.48) 66%,
+    rgba(var(--v-theme-surface-container-high), 1) 100%
+  );
+  backdrop-filter: blur(48px);
+  -webkit-backdrop-filter: blur(48px);
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.4) 28%,
+    rgba(0, 0, 0, 0.95) 62%,
+    rgba(0, 0, 0, 1) 90%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.4) 28%,
+    rgba(0, 0, 0, 0.95) 62%,
+    rgba(0, 0, 0, 1) 90%
   );
 }
 
 .hoyo-banner-overlay {
   position: relative;
   z-index: 1;
-  min-height: 110px;
+  min-height: 120px;
+}
+
+.hoyo-content {
+  padding-top: 10px !important;
 }
 
 .hoyo-avatar {

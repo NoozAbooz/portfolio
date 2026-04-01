@@ -23,12 +23,13 @@
       class="mb-4"
     />
 
-    <v-row v-else dense>
+    <v-row v-else dense class="hoyolab-cards-row">
       <v-col
         v-for="card in gameCards"
         :key="card.key"
         cols="12"
         md="6"
+        class="hoyolab-card-col"
       >
         <HoyolabPlayerCard
           :game-data="card.data"
@@ -96,3 +97,17 @@ onMounted(async () => {
   await loadHoyolabData()
 })
 </script>
+
+<style scoped>
+@media (max-width: 959px) {
+  .hoyolab-cards-row {
+    margin-top: -8px;
+    margin-bottom: -8px;
+  }
+
+  .hoyolab-card-col {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+</style>

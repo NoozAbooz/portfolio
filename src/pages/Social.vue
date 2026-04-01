@@ -9,7 +9,7 @@
         <span class="climate-font">Social</span>
       </h1>
       <p class="text-h6 text-medium-emphasis mb-6">
-        A little about my friends and a little about me.
+        Friends and social media profiles.
       </p>
 
       <v-tabs
