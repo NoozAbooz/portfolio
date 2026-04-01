@@ -7,7 +7,6 @@ from fastapi.responses import JSONResponse
 
 from core import get_hoyolab_data
 
-
 app = FastAPI()
 
 

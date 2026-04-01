@@ -217,13 +217,53 @@ const realtimeStats = computed(() => {
 }
 
 .hoyo-banner {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   background-size: cover;
   background-position: center;
-  border-bottom: 1px solid rgba(var(--v-theme-outline-variant), 0.5);
+}
+
+.hoyo-banner::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 110px;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--v-theme-surface-container-high), 0) 0%,
+    rgba(var(--v-theme-surface-container-high), 0.6) 58%,
+    rgb(var(--v-theme-surface-container-high)) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hoyo-banner::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -34px;
+  height: 84px;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px);
+  transform: scale(1.05);
+  opacity: 0.72;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.96) 24%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.96) 24%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .hoyo-banner-overlay {
   min-height: 110px;
+  position: relative;
+  z-index: 2;
 }
 
 .hoyo-avatar {
