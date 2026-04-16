@@ -630,7 +630,7 @@ moveCamera();
 function animate() {
   requestAnimationFrame(animate);
   if (robotMesh != undefined) {
-    robotMesh.rotation.y += 0.02;
+    robotMesh.rotation.y += 0.002;
   }
 
   viewer.rotation.y = Math.cos(Date.now() / 3200) / 1.8;
