@@ -42,16 +42,16 @@
       <h3 class="text-h6 text-high-emphasis mb-3">Overview</h3>
       <div class="stats-grid mb-5">
         <div v-for="stat in overviewStats" :key="stat.label" class="stat-cell">
-          <p class="text-h5 font-weight-bold text-high-emphasis mb-0">{{ stat.value }}</p>
-          <p class="text-body-2 text-medium-emphasis mb-0">{{ stat.label }}</p>
+          <p class="text-h5 font-weight-bold text-high-emphasis mb-0 stat-value">{{ stat.value }}</p>
+          <p class="text-body-2 text-medium-emphasis mb-0 stat-label">{{ stat.label }}</p>
         </div>
       </div>
 
       <h3 class="text-h6 text-high-emphasis mb-3">Real-Time notes</h3>
       <div class="stats-grid">
         <div v-for="stat in realtimeStats" :key="stat.label" class="stat-cell">
-          <p class="text-h5 font-weight-bold text-high-emphasis mb-0">{{ stat.value }}</p>
-          <p class="text-body-2 text-medium-emphasis mb-0">{{ stat.label }}</p>
+          <p class="text-h5 font-weight-bold text-high-emphasis mb-0 stat-value">{{ stat.value }}</p>
+          <p class="text-body-2 text-medium-emphasis mb-0 stat-label">{{ stat.label }}</p>
         </div>
       </div>
     </v-card-text>
@@ -327,6 +327,16 @@ const realtimeStats = computed(() => {
   border-right: 1px solid rgba(var(--v-theme-outline-variant), 0.45);
 }
 
+.stat-value {
+  font-size: 1.35rem !important;
+  line-height: 1.25;
+}
+
+.stat-label {
+  font-size: 0.8rem !important;
+  line-height: 1.2;
+}
+
 .stat-cell:last-child {
   border-right: 0;
 }
@@ -347,6 +357,14 @@ const realtimeStats = computed(() => {
 
   .stat-cell:nth-child(2n) {
     border-right: 0;
+  }
+
+  .stat-value {
+    font-size: 1.2rem !important;
+  }
+
+  .stat-label {
+    font-size: 0.76rem !important;
   }
 }
 </style>
