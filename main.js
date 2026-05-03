@@ -6,8 +6,9 @@ import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 
+// Settings for special warning on mobile devices
 const MOBILE_WARNING_STORAGE_KEY = "mobile-warning-dismissed";
-const NORMAL_PORTFOLIO_URL = "https://nooz.dev";
+const NORMAL_PORTFOLIO_URL = "https://nooz.dev/projects/";
 let hasInitializedMobileWarningToast = false;
 
 function isLikelyMobileDevice() {
