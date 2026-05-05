@@ -510,7 +510,7 @@ var pcb_fcu = undefined;
 var pcb_fss = undefined;
 
 function loadSvg() {
-  var planeGeometry = new THREE.PlaneGeometry(30, 28.3516483515, 1, 1);
+  var planeGeometry = new THREE.PlaneGeometry(35, 14.3516483515, 1, 1);
   var texture1 = new THREE.TextureLoader().load("pcbs/noozboard/1.png");
 
   pcb_bss = new THREE.Mesh(
@@ -518,7 +518,7 @@ function loadSvg() {
     new THREE.MeshBasicMaterial({
       map: texture1,
       color: 0xeeeeee,
-      transparent: true,
+      alphaTest: 0.5,
     }),
   );
 
