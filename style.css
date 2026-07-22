@@ -412,6 +412,85 @@ a:hover {
     transition: 200ms;
 }
 
+.sketch-underline {
+    --sketch-underline-color: #436dd1;
+    position: relative;
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    line-height: 1.2;
+    vertical-align: baseline;
+    white-space: normal;
+}
+
+.sketch-underline__text,
+.sketch-underline__svg {
+    display: inline;
+}
+
+.sketch-underline__text {
+    position: relative;
+    z-index: 1;
+    line-height: inherit;
+}
+
+.sketch-underline__svg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.28em;
+    width: 100%;
+    height: 0.42em;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.sketch-underline__path {
+    fill: none;
+    stroke: var(--sketch-underline-color);
+    stroke-width: 4.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    stroke-opacity: 0.8;
+    opacity: 0;
+}
+
+.sketch-underline.is-sketching .sketch-underline__path {
+    animation: sketch-underline-draw 5.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes sketch-underline-draw {
+    0% {
+        opacity: 0;
+        stroke-dashoffset: 1;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    28% {
+        stroke-dashoffset: 0;
+        opacity: 0.8;
+    }
+    80% {
+        stroke-dashoffset: 0;
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 0;
+        stroke-dashoffset: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sketch-underline.is-sketching .sketch-underline__path {
+        animation: none;
+        opacity: 0.8;
+        stroke-dashoffset: 0;
+    }
+}
+
 h1 {
     font-size: 4em;
 }

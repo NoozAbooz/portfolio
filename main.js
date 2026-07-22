@@ -76,6 +76,40 @@ function setupMobileWarningToast() {
 
 setupMobileWarningToast();
 
+function restartSketchUnderline(underline) {
+  underline.classList.remove("is-sketching");
+  void underline.offsetWidth;
+  underline.classList.add("is-sketching");
+}
+
+function setupSketchUnderlines() {
+  const underlines = document.querySelectorAll("[data-sketch-underline]");
+
+  underlines.forEach((underline) => {
+    const startMode = underline.dataset.sketchStart || "hover";
+
+    if (startMode === "load") {
+      restartSketchUnderline(underline);
+    }
+
+    underline.addEventListener("mouseenter", () => {
+      restartSketchUnderline(underline);
+    });
+
+    underline.addEventListener("focus", () => {
+      restartSketchUnderline(underline);
+    });
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", setupSketchUnderlines, {
+    once: true,
+  });
+} else {
+  setupSketchUnderlines();
+}
+
 // Create twinkling stars for loading screen
 function createLoadingStars() {
   const loadingContainer = document.querySelector(".loading");
