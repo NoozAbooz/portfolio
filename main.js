@@ -416,6 +416,15 @@ const curveObject = new THREE.Line(lineGeometry, lineMaterial);
 scene.add(curveObject);
 
 var push_back = undefined;
+const PUSH_BACK_TRAVEL_DURATION = 3000;
+const PUSH_BACK_TURN_DURATION = 750;
+const PUSH_BACK_CYCLE_DURATION =
+  PUSH_BACK_TRAVEL_DURATION * 2 + PUSH_BACK_TURN_DURATION * 2;
+const PUSH_BACK_CYCLE_START = performance.now();
+
+function easeInOutSine(value) {
+  return -(Math.cos(Math.PI * value) - 1) / 2;
+}
 // Load a glTF resource
 glbLoader.load(
   // resource URL
@@ -639,14 +648,65 @@ function animate() {
   cylinder1.position.y = Math.cos(Date.now() / 400) * 0.75 - 21;
   cylinder2.position.y = Math.cos(Date.now() / 400) * 0.75 - 21;
 
-  const t = 1 - (Math.cos(((Date.now() / 3000.0) % 2.0) * Math.PI) + 1) / 2;
-
-  const position = curve.getPoint(t);
-  const tangent = curve.getTangent(t);
+  const pushBackElapsed =
+    (performance.now() - PUSH_BACK_CYCLE_START) % PUSH_BACK_CYCLE_DURATION;
+  const pushBackEndPosition = curve.getPoint(1);
+  const pushBackStartPosition = curve.getPoint(0);
+  const pushBackEndYaw = Math.atan2(curve.getTangent(1).x, curve.getTangent(1).z);
+  const pushBackStartYaw = Math.atan2(
+    curve.getTangent(0).x,
+    curve.getTangent(0).z,
+  );
 
   if (push_back != undefined) {
-    push_back.position.set(position.x, position.y, position.z + 1);
-    push_back.rotation.y = Math.atan2(tangent.x, tangent.z);
+    if (pushBackElapsed < PUSH_BACK_TRAVEL_DURATION) {
+      const travelProgress = pushBackElapsed / PUSH_BACK_TRAVEL_DURATION;
+      const position = curve.getPoint(travelProgress);
+      const tangent = curve.getTangent(travelProgress);
+
+      push_back.position.set(position.x, position.y, position.z + 1);
+      push_back.rotation.y = Math.atan2(tangent.x, tangent.z);
+    } else if (
+      pushBackElapsed <
+      PUSH_BACK_TRAVEL_DURATION + PUSH_BACK_TURN_DURATION
+    ) {
+      const turnProgress =
+        (pushBackElapsed - PUSH_BACK_TRAVEL_DURATION) /
+        PUSH_BACK_TURN_DURATION;
+
+      push_back.position.set(
+        pushBackEndPosition.x,
+        pushBackEndPosition.y,
+        pushBackEndPosition.z + 1,
+      );
+      push_back.rotation.y =
+        pushBackEndYaw - Math.PI * easeInOutSine(turnProgress);
+    } else if (
+      pushBackElapsed <
+      PUSH_BACK_TRAVEL_DURATION * 2 + PUSH_BACK_TURN_DURATION
+    ) {
+      const travelProgress =
+        (pushBackElapsed - PUSH_BACK_TRAVEL_DURATION - PUSH_BACK_TURN_DURATION) /
+        PUSH_BACK_TRAVEL_DURATION;
+      const reverseT = 1 - travelProgress;
+      const position = curve.getPoint(reverseT);
+      const tangent = curve.getTangent(reverseT);
+
+      push_back.position.set(position.x, position.y, position.z + 1);
+      push_back.rotation.y = Math.atan2(tangent.x, tangent.z) + Math.PI;
+    } else {
+      const turnProgress =
+        (pushBackElapsed - PUSH_BACK_TRAVEL_DURATION * 2 - PUSH_BACK_TURN_DURATION) /
+        PUSH_BACK_TURN_DURATION;
+
+      push_back.position.set(
+        pushBackStartPosition.x,
+        pushBackStartPosition.y,
+        pushBackStartPosition.z + 1,
+      );
+      push_back.rotation.y =
+        pushBackStartYaw + Math.PI + Math.PI * easeInOutSine(turnProgress);
+    }
   }
 
   if (mutcap3d != undefined) {
