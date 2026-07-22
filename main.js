@@ -416,14 +416,23 @@ const curveObject = new THREE.Line(lineGeometry, lineMaterial);
 scene.add(curveObject);
 
 var push_back = undefined;
-const PUSH_BACK_TRAVEL_DURATION = 3000;
-const PUSH_BACK_TURN_DURATION = 750;
+const PUSH_BACK_TRAVEL_DURATION = 2200;
+const PUSH_BACK_TURN_DURATION = 700;
 const PUSH_BACK_CYCLE_DURATION =
   PUSH_BACK_TRAVEL_DURATION * 2 + PUSH_BACK_TURN_DURATION * 2;
 const PUSH_BACK_CYCLE_START = performance.now();
 
 function easeInOutSine(value) {
   return -(Math.cos(Math.PI * value) - 1) / 2;
+}
+
+function wrapAngle(angle) {
+  return THREE.MathUtils.euclideanModulo(angle + Math.PI, Math.PI * 2) - Math.PI;
+}
+
+function approachAngle(current, target, maxStep) {
+  const delta = wrapAngle(target - current);
+  return current + THREE.MathUtils.clamp(delta, -maxStep, maxStep);
 }
 // Load a glTF resource
 glbLoader.load(
@@ -652,20 +661,19 @@ function animate() {
     (performance.now() - PUSH_BACK_CYCLE_START) % PUSH_BACK_CYCLE_DURATION;
   const pushBackEndPosition = curve.getPoint(1);
   const pushBackStartPosition = curve.getPoint(0);
-  const pushBackEndYaw = Math.atan2(curve.getTangent(1).x, curve.getTangent(1).z);
-  const pushBackStartYaw = Math.atan2(
-    curve.getTangent(0).x,
-    curve.getTangent(0).z,
-  );
+  const pushBackTravelYaw = Math.atan2(curve.getTangent(1).x, curve.getTangent(1).z);
+  const pushBackReturnYaw = Math.atan2(curve.getTangent(0).x, curve.getTangent(0).z) + Math.PI;
 
   if (push_back != undefined) {
     if (pushBackElapsed < PUSH_BACK_TRAVEL_DURATION) {
       const travelProgress = pushBackElapsed / PUSH_BACK_TRAVEL_DURATION;
       const position = curve.getPoint(travelProgress);
       const tangent = curve.getTangent(travelProgress);
+      const slip = Math.sin(pushBackElapsed / 160) * 0.35;
 
-      push_back.position.set(position.x, position.y, position.z + 1);
+      push_back.position.set(position.x, position.y, position.z + slip + 1);
       push_back.rotation.y = Math.atan2(tangent.x, tangent.z);
+      push_back.rotation.z = Math.sin(pushBackElapsed / 210) * 0.008;
     } else if (
       pushBackElapsed <
       PUSH_BACK_TRAVEL_DURATION + PUSH_BACK_TURN_DURATION
@@ -680,7 +688,8 @@ function animate() {
         pushBackEndPosition.z + 1,
       );
       push_back.rotation.y =
-        pushBackEndYaw - Math.PI * easeInOutSine(turnProgress);
+        pushBackTravelYaw + Math.PI * easeInOutSine(turnProgress);
+      push_back.rotation.z = 0;
     } else if (
       pushBackElapsed <
       PUSH_BACK_TRAVEL_DURATION * 2 + PUSH_BACK_TURN_DURATION
@@ -691,9 +700,11 @@ function animate() {
       const reverseT = 1 - travelProgress;
       const position = curve.getPoint(reverseT);
       const tangent = curve.getTangent(reverseT);
+      const slip = Math.sin(pushBackElapsed / 160) * 0.35;
 
-      push_back.position.set(position.x, position.y, position.z + 1);
+      push_back.position.set(position.x, position.y, position.z + slip + 1);
       push_back.rotation.y = Math.atan2(tangent.x, tangent.z) + Math.PI;
+      push_back.rotation.z = Math.sin(pushBackElapsed / 210) * 0.008;
     } else {
       const turnProgress =
         (pushBackElapsed - PUSH_BACK_TRAVEL_DURATION * 2 - PUSH_BACK_TURN_DURATION) /
@@ -705,7 +716,8 @@ function animate() {
         pushBackStartPosition.z + 1,
       );
       push_back.rotation.y =
-        pushBackStartYaw + Math.PI + Math.PI * easeInOutSine(turnProgress);
+        pushBackReturnYaw + Math.PI * easeInOutSine(turnProgress);
+      push_back.rotation.z = 0;
     }
   }
 
