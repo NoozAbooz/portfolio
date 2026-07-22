@@ -414,6 +414,7 @@ a:hover {
 
 .sketch-underline {
     --sketch-underline-color: #436dd1;
+    --sketch-underline-inline-offset: 0px;
     position: relative;
     display: inline-block;
     color: inherit;
@@ -421,6 +422,7 @@ a:hover {
     line-height: 1.2;
     vertical-align: baseline;
     white-space: normal;
+    transform: translateX(var(--sketch-underline-inline-offset));
 }
 
 .sketch-underline__text,
@@ -438,7 +440,7 @@ a:hover {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -0.28em;
+    bottom: -0.18em;
     width: 100%;
     height: 0.42em;
     overflow: visible;
