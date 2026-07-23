@@ -4,6 +4,7 @@ import * as THREE from "three";
 import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 
 // Settings for special warning on mobile devices
@@ -240,6 +241,36 @@ const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
 });
 
+const freeCamTarget = new THREE.Vector3(-20, OU_OFFSET, -17);
+const freeCamStartPosition = new THREE.Vector3(-20, OU_OFFSET + 35, 125);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.screenSpacePanning = true;
+controls.minDistance = 20;
+controls.maxDistance = 400;
+controls.target.copy(freeCamTarget);
+controls.enabled = false;
+
+let isFreeCamEnabled = false;
+
+function setFreeCamEnabled(nextEnabled) {
+  isFreeCamEnabled = nextEnabled;
+  controls.enabled = nextEnabled;
+
+  if (nextEnabled) {
+    camera.position.copy(freeCamStartPosition);
+    controls.target.copy(freeCamTarget);
+    controls.update();
+  }
+}
+
+window.addEventListener("keydown", (event) => {
+  if (event.code === "KeyF" && !event.repeat) {
+    setFreeCamEnabled(!isFreeCamEnabled);
+  }
+});
+
 var robotMesh;
 
 // Instantiate a loader
@@ -387,7 +418,9 @@ function resize() {
 
   if (isMobile) {
     // Mobile phones
-    camera.position.setZ(130);
+    if (!isFreeCamEnabled) {
+      camera.position.setZ(130);
+    }
     cylinder1.position.setZ(60);
     cylinder2.position.setZ(60);
     // Hide cylinders on mobile to remove arrow-like appearance
@@ -396,11 +429,15 @@ function resize() {
   } else if (isTablet) {
     // Tablets (iPad, Surface)
     if (isPortrait) {
-      camera.position.setZ(110);
+      if (!isFreeCamEnabled) {
+        camera.position.setZ(110);
+      }
       cylinder1.position.setZ(50);
       cylinder2.position.setZ(50);
     } else {
-      camera.position.setZ(90);
+      if (!isFreeCamEnabled) {
+        camera.position.setZ(90);
+      }
       cylinder1.position.setZ(15);
       cylinder2.position.setZ(15);
     }
@@ -409,7 +446,9 @@ function resize() {
     cylinder2.visible = true;
   } else {
     // Desktop
-    camera.position.setZ(80);
+    if (!isFreeCamEnabled) {
+      camera.position.setZ(80);
+    }
     cylinder1.position.setZ(10);
     cylinder2.position.setZ(10);
     // Show cylinders on desktop
@@ -636,6 +675,10 @@ document.body.onscroll = moveCamera;
 document.body.onresize = resize;
 
 function moveCamera() {
+  if (isFreeCamEnabled) {
+    return;
+  }
+
   const top = document.body.getBoundingClientRect().top;
 
   camera.position.y = top * 0.17 - 10;
@@ -682,6 +725,8 @@ moveCamera();
 
 function animate() {
   requestAnimationFrame(animate);
+  controls.update();
+
   if (robotMesh != undefined) {
     robotMesh.rotation.y += 0.002;
   }
