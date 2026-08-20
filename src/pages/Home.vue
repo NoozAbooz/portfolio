@@ -18,7 +18,7 @@
                   </h1>
 
                   <p class="text-h6 text-medium-emphasis mb-4">
-                    I make circuit boards and contribute to FOSS software.
+                    I make circuits and contribute to FOSS software.
                   </p>
 
                   <div class="mb-6">
